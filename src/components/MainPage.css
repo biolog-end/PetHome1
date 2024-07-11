@@ -1,13 +1,14 @@
 
 /* start */
-@keyframes float {
+@keyframes floatBubble {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
-@keyframes popIn {
+
+@keyframes popInBubble {
   0% { transform: scale(0); opacity: 0; }
-  70% { transform: scale(1.1); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+  70% { transform: scale(1.1); opacity: 0.7;}
+  100% { transform: scale(1); opacity: 1;}
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -141,15 +142,15 @@
   background-color: rgba(242, 174, 114, 0.6);
   border-radius: 50%;
   opacity: 0;
-  animation: popIn 0.5s ease-out forwards, float 3s ease-in-out infinite;
+  animation: popInBubble 0.5s ease-out forwards, floatBubble 3s ease-in-out infinite;
 }
 
-.bubble1 { top: 14.5%; left: -5%; }
-.bubble2 { top: 12%; right: 15%; }
-.bubble3 { top: 30.5%;  left: 13%;}
-.bubble4 { top: 36%; right: 23%; }
-.bubble5 { bottom: 35.5%;  left: -0.3%;}
-.bubble6 { top: 19.4%;  right: -5%; }
+.bubble1 { top: 13.5%; left: -5%; }
+.bubble2 { top: 11%; right: 15%; }
+.bubble3 { top: 29.5%;  left: 13%;}
+.bubble4 { top: 35%; right: 23%; }
+.bubble5 { top: 61.5%;  left: -0.3%;}
+.bubble6 { top: 18.4%;  right: -5%; }
 
 .bubble1 { width: 18.5vw; height: 18.5vw;; }
 .bubble2 { width: 5.5vw; height: 5.5vw; }
@@ -165,13 +166,32 @@
 .bubble5 { animation-delay: 3.3s, 3.8s; }
 .bubble6 { animation-delay: 3.5s, 4s; }
 
+.bottom-bubbles-container {
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  top: -10%;
+  left: 0;
+  z-index: -5;
+  pointer-events: none;
+}
+
+.bottom-bubble {
+  position: absolute;
+  background-color: rgba(242, 174, 114, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s ease-out;
+}
+
   /*AnimalsBlock*/
 
   .AnimalsTopText {
     font-size: 2.5vw;
     color: #395873;
     width: 90%;
-    margin: 40px auto;
+    margin: 230px auto 91px;
     text-align: center;
     background-color: #ffffff7a;
     border-radius: 10px;
@@ -826,6 +846,10 @@
       font-size: 4.4vw;
       padding: 2.9vw 5.8vw;
   }
+  .bottom-bubble {
+    width: calc(var(--bubble-width) * 1.2) !important;
+    height: calc(var(--bubble-width) * 1.2) !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -863,5 +887,8 @@
   .questions-book-now::after {
       font-size: 6vw;
   }
+  .bottom-bubble {
+    width: calc(var(--bubble-width) * 1.35) !important;
+    height: calc(var(--bubble-width) * 1.35) !important;
+  }
 }
-

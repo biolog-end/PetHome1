@@ -1,8 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import dog from './Assets/Img/dog.png';
 import './MainPage.css';
+const BubbleComponent = ({ config, index }) => {
+  const [isBubbleVisible, setIsBubbleVisible] = useState(false);
+  const bubbleRef = useRef(null);
 
+  useEffect(() => {
+    const bubbleObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsBubbleVisible(true), Math.random() * 500);
+          bubbleObserver.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (bubbleRef.current) {
+      bubbleObserver.observe(bubbleRef.current);
+    }
+
+    return () => {
+      if (bubbleRef.current) {
+        bubbleObserver.unobserve(bubbleRef.current);
+      }
+    };
+  }, []);
+
+  const bubbleStyle = {
+    ...config,
+    height: config.width,
+    opacity: isBubbleVisible ? 1 : 0,
+    transform: isBubbleVisible ? 'scale(1)' : 'scale(0)',
+    backgroundColor: `rgba(242, 174, 114, ${Math.random() * (0.8 - 0.5) + 0.5})`,
+    '--bubble-width': config.width,
+  };
+  return <div ref={bubbleRef} className="bottom-bubble" style={bubbleStyle} />;
+};
 const MainContent = () => {
+  const bubbleConfigs = [
+    { width: '21vw', top: '37%', left: '24.3%' },
+    { width: '8vw', top: '20%', left: '21%' },
+    { width: '22.5vw', top: '30%', right: '18%' },
+    { width: '21vw', top: '-23%', right: '1%' },
+    { width: '26.2vw', top: '26%', left: '-1%' },
+    { width: '20vw', top: '63%', right: '0%' },
+    { width: '18.3vw', top: '148%', right: '5%' },
+    { width: '20vw', top: '77%', left: '42%' },
+    { width: '19vw', top: '-5%', left: '42%' },
+    { width: '17.5vw', top: '140%', left: '4%' }
+  ];
   useEffect(() => {
     const bubbles = document.querySelectorAll('.bubble');
 
@@ -11,6 +58,7 @@ const MainContent = () => {
       const randomOpacity = Math.random() * (0.7 - 0.5) + 0.5;
       bubble.style.backgroundColor = `rgba(242, 174, 114, ${randomOpacity})`;
     });
+  
     const animalsTopText = document.querySelector('.AnimalsTopText');
     const animalsTopTextPosition = animalsTopText.getBoundingClientRect().top;
     const screenPosition = window.innerHeight / 1.3;
@@ -523,6 +571,11 @@ const MainContent = () => {
           <div className="bottom-right-text">Это самая<br />счастливая<br />Собака!</div>
         </div>
         <div className="bottom-content">
+          <div className="bottom-bubbles-container">
+            {bubbleConfigs.map((bubbleConfig, index) => (
+              <BubbleComponent key={index} config={bubbleConfig} index={index} />
+            ))}
+          </div>
           <div className="bottom-text">
             Хотите чтобы ваш питомец<br />
             был счастлив в ваше<br />
