@@ -4,6 +4,13 @@ import './MainPage.css';
 
 const MainContent = () => {
   useEffect(() => {
+    const bubbles = document.querySelectorAll('.bubble');
+
+    bubbles.forEach((bubble, index) => {
+
+      const randomOpacity = Math.random() * (0.7 - 0.5) + 0.5;
+      bubble.style.backgroundColor = `rgba(242, 174, 114, ${randomOpacity})`;
+    });
     const animalsTopText = document.querySelector('.AnimalsTopText');
     const animalsTopTextPosition = animalsTopText.getBoundingClientRect().top;
     const screenPosition = window.innerHeight / 1.3;
@@ -352,7 +359,7 @@ const MainContent = () => {
     observer.observe(outroText);
 
     // Question Block JS
-    const questionsNumBalls = 5;
+    const questionsNumBalls = 10;
     const questionsBalls = [];
     const questionsQuestionBlock = document.querySelector('.questions-QuestionBlock');
     const questionsContainer = document.querySelector('.questions-container');
@@ -361,6 +368,35 @@ const MainContent = () => {
     const questionsButton = questionsContainer.querySelector('.questions-book-now');
 
     let questionsAnimationTriggered = false;
+
+    function questionsGetScreenSizeBasedValues() {
+      const width = window.innerWidth;
+      let minSize, maxSize, minBounceTime, maxBounceTime;
+
+      if (width <= 480) {
+        minSize = 15;
+        maxSize = 40;
+        minBounceTime = 1000;
+        maxBounceTime = 2000;
+      } else if (width <= 768) {
+        minSize = 20;
+        maxSize = 50;
+        minBounceTime = 1500;
+        maxBounceTime = 2500;
+      } else if (width <= 1024) {
+        minSize = 25;
+        maxSize = 60;
+        minBounceTime = 2000;
+        maxBounceTime = 3000;
+      } else {
+        minSize = 30;
+        maxSize = 85;
+        minBounceTime = 2500;
+        maxBounceTime = 3500;
+      }
+
+      return { minSize, maxSize, minBounceTime, maxBounceTime };
+    }
 
     function questionsCreateBall() {
       const existingBalls = questionsQuestionBlock.querySelectorAll('.questions-tennis-ball');
@@ -374,13 +410,20 @@ const MainContent = () => {
       
       const speed = 0.5 + Math.random() * 1;
       const angle = Math.random() * Math.PI * 2;
+      const { minSize, maxSize, minBounceTime, maxBounceTime } = questionsGetScreenSizeBasedValues();
+      const size = minSize + Math.random() * (maxSize - minSize);
+      
+      ball.style.width = `${size}px`;
+      ball.style.height = `${size}px`;
       
       return {
         element: ball,
-        x: Math.random() * (questionsQuestionBlock.clientWidth - 60),
-        y: Math.random() * (questionsQuestionBlock.clientHeight - 60),
+        x: Math.random() * (questionsQuestionBlock.clientWidth - size),
+        y: Math.random() * (questionsQuestionBlock.clientHeight - size),
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed
+        vy: Math.sin(angle) * speed,
+        size: size,
+        nextBounceTime: Date.now() + (minBounceTime + Math.random() * (maxBounceTime - minBounceTime))
       };
     }
 
@@ -388,13 +431,23 @@ const MainContent = () => {
       ball.x += ball.vx;
       ball.y += ball.vy;
 
-      if (ball.x < 0 || ball.x > questionsQuestionBlock.clientWidth - 60) {
+      if (ball.x < 0 || ball.x > questionsQuestionBlock.clientWidth - ball.size) {
         ball.vx = -ball.vx;
-        ball.x = Math.max(0, Math.min(ball.x, questionsQuestionBlock.clientWidth - 60));
+        ball.x = Math.max(0, Math.min(ball.x, questionsQuestionBlock.clientWidth - ball.size));
       }
-      if (ball.y < 0 || ball.y > questionsQuestionBlock.clientHeight - 60) {
+      if (ball.y < 0 || ball.y > questionsQuestionBlock.clientHeight - ball.size) {
         ball.vy = -ball.vy;
-        ball.y = Math.max(0, Math.min(ball.y, questionsQuestionBlock.clientHeight - 60));
+        ball.y = Math.max(0, Math.min(ball.y, questionsQuestionBlock.clientHeight - ball.size));
+      }
+
+      // Отбивание от пустоты
+      if (Date.now() >= ball.nextBounceTime) {
+        const randomAngle = Math.random() * Math.PI * 2;
+        const speed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
+        ball.vx = Math.cos(randomAngle) * speed;
+        ball.vy = Math.sin(randomAngle) * speed;
+        const { minBounceTime, maxBounceTime } = questionsGetScreenSizeBasedValues();
+        ball.nextBounceTime = Date.now() + (minBounceTime + Math.random() * (maxBounceTime - minBounceTime));
       }
 
       ball.element.style.left = `${ball.x}px`;
@@ -456,7 +509,6 @@ const MainContent = () => {
     window.addEventListener('resize', questionsHandleResize);
 
     questionsHandleScroll();
-
   }, []);
 
   return (
@@ -478,6 +530,12 @@ const MainContent = () => {
             <button className="cta-button">Арендовать Отель</button>
           </div>
         </div>
+        <div class="bubble bubble1"></div>
+        <div class="bubble bubble2"></div>
+        <div class="bubble bubble3"></div>
+        <div class="bubble bubble4"></div>
+        <div class="bubble bubble5"></div>
+        <div class="bubble bubble6"></div>
         <div className="AnimalsTopText">Вы можете нам прислать практически любой тип домашнего животного! От домашнего микроба, и до медведя! <br /> Например....</div>
       </div>
 

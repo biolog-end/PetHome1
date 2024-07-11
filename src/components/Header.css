@@ -299,6 +299,22 @@ nav {
   margin-bottom: 10px;
   text-align: left;
 }
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #395873;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  transition: transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+  transform: scale(1.1);
+}
 @media (min-width: 1152px) {
   .logo {
       left: 7.5%;
