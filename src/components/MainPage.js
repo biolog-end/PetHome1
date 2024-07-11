@@ -254,7 +254,7 @@ const MainContent = () => {
       const containerWidth = reviewCarouselContainer.offsetWidth;
       const cardWidth = reviewCarousel.children[0].offsetWidth;
       const visibleCards = Math.floor(containerWidth / cardWidth);
-      return Math.max(0, reviewCarousel.children.length - visibleCards);
+      return Math.max(0, reviewCarousel.children.length - visibleCards) - 1;
     }
 
     function reviewSetPositionByIndex() {
