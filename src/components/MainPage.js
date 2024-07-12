@@ -1,41 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import dog from './Assets/Img/dog.png';
 import './MainPage.css';
-const BubbleComponent = ({ config, index }) => {
-  const [isBubbleVisible, setIsBubbleVisible] = useState(false);
+const BubbleComponent = ({ config, index, className }) => {
   const bubbleRef = useRef(null);
-
-  useEffect(() => {
-    const bubbleObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsBubbleVisible(true), Math.random() * 500);
-          bubbleObserver.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (bubbleRef.current) {
-      bubbleObserver.observe(bubbleRef.current);
-    }
-
-    return () => {
-      if (bubbleRef.current) {
-        bubbleObserver.unobserve(bubbleRef.current);
-      }
-    };
-  }, []);
 
   const bubbleStyle = {
     ...config,
     height: config.width,
-    opacity: isBubbleVisible ? 1 : 0,
-    transform: isBubbleVisible ? 'scale(1)' : 'scale(0)',
     backgroundColor: `rgba(242, 174, 114, ${Math.random() * (0.8 - 0.5) + 0.5})`,
     '--bubble-width': config.width,
   };
-  return <div ref={bubbleRef} className="bottom-bubble" style={bubbleStyle} />;
+
+  if (className === 'middle-bubble') {
+    bubbleStyle.animationPlayState = 'running';
+    bubbleStyle.animationDelay = `${Math.random() * 2}s`;
+  }
+
+  return <div ref={bubbleRef} className={className} style={bubbleStyle} />;
 };
 const MainContent = () => {
   const bubbleConfigs = [
@@ -50,22 +31,74 @@ const MainContent = () => {
     { width: '19vw', top: '-5%', left: '42%' },
     { width: '17.5vw', top: '140%', left: '4%' }
   ];
+
+  const middleBubbleConfigs = [
+    { width: '6vw', top: '-50%', right: '27%' },
+    { width: '7.3vw', top: '-14%', left: '26%' },
+    { width: '4vw', top: '40%', left: '15%' }
+  ];
+
+  const bottomStaticBubbleConfigs = [
+    { width: '8vw', top: '5%', left: '23%' },
+    { width: '16vw', top: '45%', left: '14.1%' },
+    { width: '24.5vw', top: '25%', left: '30%' },
+    { width: '12vw', top: '-9%', left: '68%' },
+    { width: '11vw', top: '14%', left: '84%' },
+    { width: '18vw', top: '35%', left: '-3.6%' },
+    { width: '8vw', top: '99.9%', left: '25.4%' },
+    { width: '14vw', top: '22%', left: '55%' },
+    { width: '17vw', top: '47.9%', left: '68.4%' },
+    { width: '8.3vw', top: '98.4%', left: '10%' },
+    { width: '12vw', top: '81.8%', left: '53%' },
+    { width: '6vw', top: '108%', left: '65%' },
+    { width: '15vw', top: '69%', left: '86%' }
+  ];
   useEffect(() => {
+    function IsElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+      );
+    }
+    
+    function applyStyles(elements, styles) {
+      elements.forEach(el => {
+        if (IsElementInViewport(el) && !el.hasAttribute('data-styles-applied')) {
+          Object.keys(styles).forEach(style => {
+            el.style[style] = styles[style];
+          });
+          el.setAttribute('data-styles-applied', 'true');
+          console.log(`${el.className} is now visible and styles applied`);
+        }
+      });
+    }
+    
+
+    
+    const animalsVision = {
+      opacity: '1',
+      animation: 'animalFadeIn 1s ease-out forwards'
+    };
+    
+    window.addEventListener('scroll', () => applyStyles(document.querySelectorAll('.AnimalsTopText'), animalsVision));
+    
     const bubbles = document.querySelectorAll('.bubble');
 
     bubbles.forEach((bubble, index) => {
-
       const randomOpacity = Math.random() * (0.7 - 0.5) + 0.5;
       bubble.style.backgroundColor = `rgba(242, 174, 114, ${randomOpacity})`;
     });
-  
-    const animalsTopText = document.querySelector('.AnimalsTopText');
-    const animalsTopTextPosition = animalsTopText.getBoundingClientRect().top;
-    const screenPosition = window.innerHeight / 1.3;
 
-    if(animalsTopTextPosition < screenPosition) {
-      animalsTopText.classList.add('visible');
-    }
+    const bubleAppear = {
+      opacity: '1',
+      transform: 'scale(1)'
+    };
+
+    const bubblesToShow = document.querySelectorAll('.bottom-bubble, .middle-bubble, .bottom-static-bubble');
+    
+    window.addEventListener('scroll', () => applyStyles(bubblesToShow, bubleAppear));
+  
     const AnimalsCarousel = document.getElementById('AnimalsCarousel');
     const AnimalsMainImage = document.getElementById('AnimalsMainImage');
     const AnimalsCarouselItems = document.querySelectorAll('.AnimalsCarouselItem');
@@ -79,7 +112,12 @@ const MainContent = () => {
       'https://aqua.laguna-land.ru/storage/app/media/uploaded-files/shutterstock_1915848625.jpg'
     ];
     let AnimalsCurrentImageIndex = 2; 
+    const animalsCorouselSpin = {
+      opacity: '1',
+      animation: 'AnimalsSpinIn 1s ease-out forwards'
+    };
 
+    window.addEventListener('scroll', () => applyStyles(document.querySelectorAll('.AnimalsCarousel'), animalsCorouselSpin));
     function AnimalsPositionItems() {
       const a = 21; 
       const b = 43; 
@@ -488,7 +526,6 @@ const MainContent = () => {
         ball.y = Math.max(0, Math.min(ball.y, questionsQuestionBlock.clientHeight - ball.size));
       }
 
-      // Отбивание от пустоты
       if (Date.now() >= ball.nextBounceTime) {
         const randomAngle = Math.random() * Math.PI * 2;
         const speed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
@@ -520,18 +557,8 @@ const MainContent = () => {
       }
     }
 
-    function questionsIsElementInViewport(el) {
-      const rect = el.getBoundingClientRect();
-      return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-      );
-    }
-
     function questionsHandleScroll() {
-      if (!questionsAnimationTriggered && questionsIsElementInViewport(questionsContainer)) {
+      if (!questionsAnimationTriggered && IsElementInViewport(questionsContainer)) {
         questionsTitle.style.animation = 'questions-fadeInUp 1s ease forwards';
         questionsParagraph.style.animation = 'questions-fadeInUp 1s ease 0.5s forwards';
         questionsButton.style.animation = 'questions-fadeInScale 1s ease 1s forwards';
@@ -571,9 +598,9 @@ const MainContent = () => {
           <div className="bottom-right-text">Это самая<br />счастливая<br />Собака!</div>
         </div>
         <div className="bottom-content">
-          <div className="bottom-bubbles-container">
+          <div className="bubbles-container">
             {bubbleConfigs.map((bubbleConfig, index) => (
-              <BubbleComponent key={index} config={bubbleConfig} index={index} />
+              <BubbleComponent key={index} config={bubbleConfig} index={index} className="bottom-bubble" />
             ))}
           </div>
           <div className="bottom-text">
@@ -590,10 +617,20 @@ const MainContent = () => {
         <div class="bubble bubble5"></div>
         <div class="bubble bubble6"></div>
         <div className="AnimalsTopText">Вы можете нам прислать практически любой тип домашнего животного! От домашнего микроба, и до медведя! <br /> Например....</div>
+        <div className="bubbles-container">
+          {middleBubbleConfigs.map((bubbleConfig, index) => (
+            <BubbleComponent key={index} config={bubbleConfig} index={index} className="middle-bubble" />
+          ))}
+        </div>
       </div>
 
       {/* AnimalsBlock */}
       <div className="AnimalsBlock">
+        <div className="bubbles-container" style={{marginTop: '43%', height: '32%', zIndex: '100'}}>
+          {bottomStaticBubbleConfigs.map((bubbleConfig, index) => (
+            <BubbleComponent key={index} config={bubbleConfig} index={index} className="bottom-static-bubble" />
+          ))}
+        </div>
         <div className="AnimalsEllipse"></div>
         <div className="AnimalsMainContent">
           <div className="AnimalsTextCarousel">
