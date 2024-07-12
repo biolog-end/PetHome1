@@ -862,7 +862,7 @@
       font-size: 4.4vw;
       padding: 2.9vw 5.8vw;
   }
-  .bottom-bubble, .middle-bubble, .bottom-static-bubble {
+  .bottom-bubble, .middle-bubble {
     width: calc(var(--bubble-width) * 1.2) !important;
     height: calc(var(--bubble-width) * 1.2) !important;
   }
@@ -903,7 +903,7 @@
   .questions-book-now::after {
       font-size: 6vw;
   }
-  .bottom-bubble, .middle-bubble, .bottom-static-bubble {
+  .bottom-bubble, .middle-bubble {
     width: calc(var(--bubble-width) * 1.35) !important;
     height: calc(var(--bubble-width) * 1.35) !important;
   }
