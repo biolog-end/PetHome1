@@ -200,7 +200,7 @@ const Header = () => {
           <div className="menu">
             <a href="#prices">Цены</a>
             <a href="/about">Про нас</a>
-            <a href="#services">Сервисы</a>
+            <a href="/">Сервисы</a>
             <a href="#blog">Блог</a>
             <a href="#contacts">Контакты</a>
           </div>
