@@ -61,7 +61,6 @@ function DiskRecordText() {
         <div className="disk-tonearm">
           <div className="disk-tonearm-base"></div>
           <div className="disk-tonearm-arm" style={{animationPlayState: isPlaying ? 'running' : 'paused'}}>
-            <div className="disk-tonearm-head"></div>
             <div className="disk-tonearm-extension"></div>
           </div>
         </div>
@@ -95,7 +94,7 @@ function DiskRecordText() {
     };
 
     const leaves = [
-      { left: '-50px', bottom: '50px', transform: 'rotate(30deg)' },
+      { right: '8%', top: '19%', transform: 'rotate(167deg)', width: '7vw', height: '7vw' },
       { right: '-30px', bottom: '100px', transform: 'rotate(-15deg)' },
       { left: '100px', bottom: '-20px', transform: 'rotate(60deg)' },
       { right: '150px', bottom: '-10px', transform: 'rotate(-45deg)' },
