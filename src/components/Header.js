@@ -190,7 +190,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div className="HeaderSuperDiv">
       {/* Header */}
       <header id="header">
         <nav>
