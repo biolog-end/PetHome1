@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/599a8381-f08f-41e7-9507-cc11cca03b46/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/PetHome",
+    "appService.deploySubpath": "."
+}
