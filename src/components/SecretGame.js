@@ -149,7 +149,7 @@ const SecretGame = () => {
     light.position.set(0, 10, 0);
     scene.add(light);
 
-    const ambientLight = new THREE.AmbientLight(0x404040, 1, 1);
+    const ambientLight = new THREE.AmbientLight(0x404040, 10);
     scene.add(ambientLight);
 
     const normalMoveSpeed = 0.1;
