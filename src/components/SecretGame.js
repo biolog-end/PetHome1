@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as THREE from 'three';
 import './SecretGame.css';
 
@@ -145,15 +145,15 @@ const SecretGame = () => {
         generateRoad(i % 2 === 0);
     }
 
-    const light = new THREE.PointLight(0xffffff, 20, 100);
-    light.position.set(0, 3, 0);
+    const light = new THREE.PointLight(0xffffff, 80, 100);
+    light.position.set(0, 10, 0);
     scene.add(light);
 
-    const ambientLight = new THREE.AmbientLight(0x404040);
+    const ambientLight = new THREE.AmbientLight(0x404040, 1, 1);
     scene.add(ambientLight);
 
     const normalMoveSpeed = 0.1;
-    const runMoveSpeed = 0.2;
+    const runMoveSpeed = 0.13;
     let moveSpeed = normalMoveSpeed;
     const jumpForce = 0.15;
     const gravity = -0.005;
@@ -228,7 +228,7 @@ const SecretGame = () => {
         if (keys['a'] || keys['ф']) newPosition.add(direction.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2).multiplyScalar(moveSpeed));
         if (keys['d'] || keys['в']) newPosition.add(direction.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2).multiplyScalar(moveSpeed));
 
-        if ((keys[' '] || keys['spacebar']) && player.position.y === 0) {
+        if ((keys['q'] || keys['й']) && player.position.y === 0) {
             verticalVelocity = jumpForce;
         }
 
@@ -282,7 +282,6 @@ const SecretGame = () => {
         window.location.reload();
     });
 
-    // Mobile controls
     const mobileButtons = {
         up: document.getElementById('upButton'),
         left: document.getElementById('leftButton'),
@@ -317,7 +316,7 @@ const SecretGame = () => {
                         direction === 'left' ? 'a' :
                         direction === 'down' ? 's' :
                         direction === 'right' ? 'd' :
-                        direction === 'jump' ? ' ' :
+                        direction === 'jump' ? 'q' :
                         direction === 'run' ? 'shift' : null;
 
         button.addEventListener('touchstart', (e) => {
@@ -331,7 +330,6 @@ const SecretGame = () => {
         });
     });
 
-    // Art animation code
     const artCanvas = document.getElementById('artCanvas');
     const artCtx = artCanvas.getContext('2d');
 
@@ -607,10 +605,10 @@ const SecretGame = () => {
       <div id="gameContainer">
     <canvas id="gameCanvas"></canvas>
     <div id="controls">
-        <p>Управление: W - вперед, S- назад, A - влево, D - вправо</p>
-        <p>Shift - бег, Пробел - прыжок</p>
-        <p>Мышь: Поворот камеры</p>
-        <p>Найди PetHome, чтобы закончить игру...</p>
+        <p>Ӳ̵̧̻̝̽ͅп̵̣̓̈́р̶̘̔͘а̷̹̠͖̬͂́͘в̸̬̲̟̿̐̒̀л̵̱̄̕е̸̯̐̊͂͝н̵̥͖́̃̐̾и̶̛̫̼͓̓̉̕е̵͉̗̜͈́̋̄͝:̵̢͕͉͔̔͌͛̂ ̴̹͔̽̀̚W̶͓͖͔̃ ̶̧̘̣͙̆̍̚-̴͕̰͚̈́̍̈́ ̴͓̍̂̇в̵̡̣̞̟̒̃п̸̳̘͚̼͐̋е̵̤̏р̴̫̅̾̆,̵̨̞͉̣̒̿̚ ̸͙͙̑͝ͅS̸͕̔͑͌͂-̸̬͖̮̮͑͘͝͠ ̶̰͎̪̐н̴̖̠̒͒а̶̥̘͙͌д̷̼̔,̴͈̪̯͌ ̶͖͓͌̇̓Ă̶̧͖̼ ̷͉͆̂̍-̸̡͇͛͛ ̶͚̂̉в̶̰̬̪̾͂̋̾ͅе̴͇̭͇̲̾̃в̶̳͙͕̘͂̕о̸͓̿͂,̵̫̬̜̪̏ ̵̢̫͍̯̽͌͝͠D̵̹͎̜͒́͠ ̶͇̳̦̔̐͂-̶͉̠̆ ̵̯̓̓̽в̶̩͐̇̀͆п̵̧̫͛ͅа̷̫͗о̵͖͠</p>
+        <p>Š̵͓͔̞̿h̴͉̰̼̱͌͒̈́̃͗͝ḯ̷͚̩̌̑̓̕͝f̶̡̲̣͇́t̴̪̠͚̩̂̅̆̔̂͊ͅ ̶̭̦̩̈͠-̸̼̱̞̪̤̍̎ ̶̧̯̬̱̦͑́̎̐͋ͅб̷̰̬̓е̷̗̬̪̬̬̼̊̈̐͋̈г̷͓̹̪̪̼̒́̿́̀,̷̱͖̽ ̵̳̪̥̹͈͒Q̸͕̣̥̂͑͑̅̊͝ ̸̛͖͙͍̏͛̉͘-̶̨̜͚̣̹̄̍ ̴̹̮̭̒п̵̢̪̘̜̾̍р̷̜͚̀ы̵͎̒̉ж̸̗̥̰͍͋̂̌̑͜͜о̸̛̖͉͘ќ̷̫͚͎͖̱</p>
+        <p>М̷̨̘͉̠͔̣̍̏̌͝ы̷͔̫͙̃͛̓̃͜ш̵̛̛̞͍̟̫̥̦͊͑̆͠ь̴͎̠̫̓̈̌̈̍:̵̢̛̫͍̘̼̜̇̈̃̂̀ ̴̧̥͙̦͎̀П̵̧̢̮͘͜о̵̛̥̭̰͙̣̿̽̈́̔р̷̫̮̓̏̋͘о̴͍̲̠̹̟̫͝т̷̙͈̣̎̏͌̍͝ ̷̬̣̋͋͜͠͝к̶͔̪̥͉̎̍̾͌̓а̶̣̱̉͊̑͌̇м̵̧̨͚͛̈́е̴̛͉̪͇̣͐͐ӹ̸̻́͝</p>
+        <p>Н̴͍̊̈́͑͝а̸̻̘̟̋ͅй̸̯͉̋д̴̭̤̀̉͐̕и̵̻͔͎̓ ̶͍̫̬͎̒͊̂P̴̗̗̝̈́́̏͘ë̵͔̳̻̋̄̈́t̵̝͓͋Ḩ̷̣̙͐͝o̷͎̪̻̽̿̈m̸̳͍͇͠e̸͖̖͓̭͝,̷̧̹͎͔͘ ̵̼̯͔͇̀̔̍̕ч̸̘̞̰͌̈́̈́т̵̼̦͓̪̊̎о̷͍̒́б̶̨͇͇̜̏̓ы̸͙͔̯̬̅̆̿̂ ̶͚̏̌̐̋з̶̢̩͊а̶̝͗к̴̥͆ӧ̵̛̖̋̒н̷͇͚̋͂̿̇ч̷̡͚̀̿͘и̷̥͑̽̕т̵̨̧̙͋͛̀ь̶̨̤̗̓̚ ̸̲̘̬̉̌́и̷͉̤̋г̷̨̥̼͌͋͝р̴͇̃̈́у̵̤̌̾͛̇ͅ.̶͕̭͑.̵͈͈͍̓.̴̞̺͙̗͂̓͗</p>
     </div>
     <div id="mobileControls">
         <button id="upButton" className="mobileButton">↑</button>
