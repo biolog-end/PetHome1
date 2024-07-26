@@ -13,18 +13,6 @@ const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    setMode(initialMode);
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [initialMode, isOpen]);
-
-  useEffect(() => {
     const handleEsc = (event) => {
       if (event.keyCode === 27) onClose();
     };
