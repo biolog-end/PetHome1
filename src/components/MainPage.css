@@ -145,27 +145,6 @@
   animation: popInBubble 0.5s ease-out forwards, floatBubble 3s ease-in-out infinite;
 }
 
-.bubble1 { top: 13.5%; left: -5%; }
-.bubble2 { top: 11%; right: 15%; }
-.bubble3 { top: 29.5%;  left: 13%;}
-.bubble4 { top: 35%; right: 23%; }
-.bubble5 { top: 61.5%;  left: -0.3%;}
-.bubble6 { top: 18.4%;  right: -5%; }
-
-.bubble1 { width: 18.5vw; height: 18.5vw;; }
-.bubble2 { width: 5.5vw; height: 5.5vw; }
-.bubble3 { width: 10vw; height: 10vw; }
-.bubble4 { width: 5.5vw; height: 5.5vw;}
-.bubble5 { width: 5.5vw; height: 5.5vw; }
-.bubble6 { width: 19.5vw; height: 19.5vw; }
-
-.bubble1 { animation-delay: 2.5s, 3s; }
-.bubble2 { animation-delay: 2.7s, 3.2s; }
-.bubble3 { animation-delay: 2.9s, 3.4s; }
-.bubble4 { animation-delay: 3.1s, 3.6s; }
-.bubble5 { animation-delay: 3.3s, 3.8s; }
-.bubble6 { animation-delay: 3.5s, 4s; }
-
 .bubbles-container {
   position: absolute;
   width: 100%;
@@ -907,4 +886,35 @@
     width: calc(var(--bubble-width) * 1.35) !important;
     height: calc(var(--bubble-width) * 1.35) !important;
   }
+}
+
+.splash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(242, 174, 114, 0.8);
+  border-radius: 50%;
+  animation: particleAnimation 0.3s ease-out forwards;
+}
+
+@keyframes particleAnimation {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.special-bubble {
+  cursor: pointer;
 }

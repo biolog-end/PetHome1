@@ -7,9 +7,9 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: #6DD3E1;
 
-  /* background-size: contain;
+  background-size: contain;
   background: url('./components/Assets/Img/mainPage.jpg') no-repeat top center;
-  background-size: cover; */
+  background-size: cover;
 }
 
 code {

@@ -1,22 +1,83 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import dog from './Assets/Img/dog.png';
 import './MainPage.css';
 const BubbleComponent = ({ config, index, className }) => {
   const bubbleRef = useRef(null);
+  const [isPopped, setIsPopped] = useState(false);
+  const [isSpecial, setIsSpecial] = useState(false);
+  const navigate = useNavigate();
 
   const bubbleStyle = {
     ...config,
     height: config.width,
-    backgroundColor: `rgba(242, 174, 114, ${Math.random() * (0.8 - 0.5) + 0.5})`,
+    backgroundColor: isSpecial ? 'rgba(255, 0, 0, 0.5)' : `rgba(242, 174, 114, ${Math.random() * (0.8 - 0.5) + 0.5})`,
     '--bubble-width': config.width,
+    transition: 'all 0.3s ease-out',
+    opacity: isPopped ? 0 : 1,
+    transform: isPopped ? 'scale(0)' : 'scale(1)',
   };
 
-  if (className === 'middle-bubble') {
-    bubbleStyle.animationPlayState = 'running';
-    bubbleStyle.animationDelay = `${Math.random() * 2}s`;
-  }
+  const popBubble = () => {
+    if (isSpecial) {
+      navigate('/secretgame');
+      return;
+    }
 
-  return <div ref={bubbleRef} className={className} style={bubbleStyle} />;
+    setIsPopped(true);
+    playPopSound();
+    createSplashEffect();
+
+    setTimeout(() => {
+      setIsPopped(false);
+      if (Math.random() < 0.2) {
+        setIsSpecial(true);
+      }
+    }, Math.random() * 2000 + 1000);
+  };
+
+  const playPopSound = () => {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
+
+    gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.1);
+  };
+
+  const createSplashEffect = () => {
+    const splash = document.createElement('div');
+    splash.className = 'splash';
+    for (let i = 0; i < 8; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.transform = `rotate(${i * 45}deg) translateY(-50px)`;
+      splash.appendChild(particle);
+    }
+    bubbleRef.current.appendChild(splash);
+    setTimeout(() => {
+      splash.remove();
+    }, 300);
+  };
+
+  return (
+    <div
+      ref={bubbleRef}
+      className={`${className} ${isSpecial ? 'special-bubble' : ''}`}
+      style={bubbleStyle}
+      onClick={popBubble}
+    />
+  );
 };
 const MainContent = () => {
   const bubbleConfigs = [
@@ -591,11 +652,11 @@ const MainContent = () => {
       {/* Start */}
       <div className="StartContainer">
         <div className="content-top">
-          <div className="top-left-text">Питомец в<br />тёплом<br />доме...</div>
-          <div className="main-image-container">
-            <img src={dog} alt="Счастливая собака" className="main-image" />
-          </div>
-          <div className="bottom-right-text">Это самая<br />счастливая<br />Собака!</div>
+          <div className="top-left-text">YOU'RE FAR<br />AWAY,FAR<br />AWAY...</div>
+            <div className="main-image-container">
+              <img src={dog} alt="Счастливая собака" className="main-image" />
+            </div>
+          <div className="bottom-right-text">BUT YOUR<br />DOG IS <br />HERE</div>
         </div>
         <div className="bottom-content">
           <div className="bubbles-container">
@@ -610,12 +671,6 @@ const MainContent = () => {
             <button className="cta-button">Арендовать Отель</button>
           </div>
         </div>
-        <div class="bubble bubble1"></div>
-        <div class="bubble bubble2"></div>
-        <div class="bubble bubble3"></div>
-        <div class="bubble bubble4"></div>
-        <div class="bubble bubble5"></div>
-        <div class="bubble bubble6"></div>
         <div className="AnimalsTopText">Вы можете нам прислать практически любой тип домашнего животного! От домашнего микроба, и до медведя! <br /> Например....</div>
         <div className="bubbles-container">
           {middleBubbleConfigs.map((bubbleConfig, index) => (
