@@ -1,0 +1,30 @@
+.splash {
+    pointer-events: none;
+    z-index: 1000;
+  }
+  
+  .droplet {
+    position: absolute;
+    border-radius: 50%;
+    animation: dropletAnimation 1s ease-out forwards;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  }
+  
+  @keyframes dropletAnimation {
+    0% {
+      opacity: 1;
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5) translate(var(--end-x), var(--end-y));
+    }
+  }
+  
+  .floating-bubble {
+    animation: floatBubble 3s ease-in-out infinite;
+  }
+  
+  .special-bubble {
+    cursor: pointer;
+  }

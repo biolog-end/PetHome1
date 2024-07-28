@@ -1,84 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import dog from './Assets/Img/dog.png';
 import './MainPage.css';
-const BubbleComponent = ({ config, index, className }) => {
-  const bubbleRef = useRef(null);
-  const [isPopped, setIsPopped] = useState(false);
-  const [isSpecial, setIsSpecial] = useState(false);
-  const navigate = useNavigate();
-
-  const bubbleStyle = {
-    ...config,
-    height: config.width,
-    backgroundColor: isSpecial ? 'rgba(255, 0, 0, 0.5)' : `rgba(242, 174, 114, ${Math.random() * (0.8 - 0.5) + 0.5})`,
-    '--bubble-width': config.width,
-    transition: 'all 0.3s ease-out',
-    opacity: isPopped ? 0 : 1,
-    transform: isPopped ? 'scale(0)' : 'scale(1)',
-  };
-
-  const popBubble = () => {
-    if (isSpecial) {
-      navigate('/secretgame');
-      return;
-    }
-
-    setIsPopped(true);
-    playPopSound();
-    createSplashEffect();
-
-    setTimeout(() => {
-      setIsPopped(false);
-      if (Math.random() < 0.2) {
-        setIsSpecial(true);
-      }
-    }, Math.random() * 2000 + 1000);
-  };
-
-  const playPopSound = () => {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
-
-    gainNode.gain.setValueAtTime(1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
-  };
-
-  const createSplashEffect = () => {
-    const splash = document.createElement('div');
-    splash.className = 'splash';
-    for (let i = 0; i < 8; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.transform = `rotate(${i * 45}deg) translateY(-50px)`;
-      splash.appendChild(particle);
-    }
-    bubbleRef.current.appendChild(splash);
-    setTimeout(() => {
-      splash.remove();
-    }, 300);
-  };
-
-  return (
-    <div
-      ref={bubbleRef}
-      className={`${className} ${isSpecial ? 'special-bubble' : ''}`}
-      style={bubbleStyle}
-      onClick={popBubble}
-    />
-  );
-};
+import BubbleComponent from './BubbleComponent';
 const MainContent = () => {
   const bubbleConfigs = [
     { width: '21vw', top: '37%', left: '24.3%' },
@@ -143,13 +66,6 @@ const MainContent = () => {
     };
     
     window.addEventListener('scroll', () => applyStyles(document.querySelectorAll('.AnimalsTopText'), animalsVision));
-    
-    const bubbles = document.querySelectorAll('.bubble');
-
-    bubbles.forEach((bubble, index) => {
-      const randomOpacity = Math.random() * (0.7 - 0.5) + 0.5;
-      bubble.style.backgroundColor = `rgba(242, 174, 114, ${randomOpacity})`;
-    });
 
     const bubleAppear = {
       opacity: '1',
@@ -672,10 +588,16 @@ const MainContent = () => {
           </div>
         </div>
         <div className="AnimalsTopText">Вы можете нам прислать практически любой тип домашнего животного! От домашнего микроба, и до медведя! <br /> Например....</div>
-        <div className="bubbles-container">
-          {middleBubbleConfigs.map((bubbleConfig, index) => (
-            <BubbleComponent key={index} config={bubbleConfig} index={index} className="middle-bubble" />
-          ))}
+          <div className="bubbles-container">
+            {middleBubbleConfigs.map((bubbleConfig, index) => (
+              <BubbleComponent 
+                key={index} 
+                config={bubbleConfig} 
+                index={index} 
+                className="middle-bubble" 
+                isFloating={true}
+              />
+            ))}
         </div>
       </div>
 
