@@ -53,6 +53,9 @@
   padding: 80px 5% 0;
 }
 .main-image-container {
+  -webkit-user-select: none;  
+  -moz-user-select: none;  
+  -ms-user-select: none; 
   width: 100%;
   max-width: 1100px;
   display: flex;
@@ -98,7 +101,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3.8%;
   opacity: 0;
   animation: fadeIn 1s ease-out 2s forwards;
 }
@@ -152,20 +154,26 @@
   width: 100%;
   height: 300px;
   margin-top: 50px;
+  z-index: 1000;
 }
 
-.bottom-bubble, .middle-bubble, .bottom-static-bubble {
+.blueBubble, .whiteBubble, .bottom-static-bubble {
   position: absolute;
-  background-color: rgba(242, 174, 114, 0.6);
   border-radius: 50%;
   opacity: 0;
-  transform: scale(0);
+  transform: scale(0); 
   transition: all 0.5s ease-out;
+  user-select: none;  
+  -webkit-user-select: none;  
+  -moz-user-select: none;  
+  -ms-user-select: none; 
 }
 
-.middle-bubble {
-  animation: floatBubble 3s ease-in-out infinite;
-  animation-play-state: paused;
+.blueBubble {
+  background-color: #C3EEF4;
+}
+.whiteBubble{
+  background-color: #ffffff; 
 }
 
 .bottom-static-bubble {
@@ -196,17 +204,20 @@
     animation: softGlow 2s infinite;
   }
   .AnimalsBlock {
+    background-color: #FFFFFF;
+    margin-top: 207px;
     position: relative;
     width: 100%;
     max-width: 1920px;
     height: 0;
-    padding-bottom: 75.74%; 
+    padding-top: 5.7%;
+    padding-bottom: 75.74%;
     overflow: hidden;
   }
   .AnimalsMainContent {
     text-align: center;
     position: absolute;
-    top: 0;
+    top: 28.1%;
     left: 0;
     width: 100%;
     height: 100%;
@@ -268,15 +279,15 @@
     background-color: #395873;
   }
   .AnimalsMainImage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: relative;
+    top: 8.1%;
+    left: 0%;
+    width: 83%;
+    height: 83.5%;
     border-radius: 50%;
     object-fit: cover;
     transition: opacity 0.5s;
-    }
+  }
 
     @keyframes AnimalsSpinIn {
       0% {
@@ -290,8 +301,8 @@
     position: absolute;
     width: 50%;
     height: 32%;
-    right: -23.2%;
-    top: 10.3%;
+    right: -22.5%;
+    top: 36.7%;
     opacity: 0;
     transform-origin: 44.5% 61.8%;
     transition: opacity 0.5s;
@@ -311,17 +322,6 @@
   .AnimalsCarouselItem img {
     width: 60%;
     height: 60%;
-  }
-  .AnimalsEllipse {
-    position: absolute;
-    bottom: 0;
-    left: -8%;
-    width: 117%;
-    height: 36%;
-    background-color: #395873;
-    border-top-left-radius: 50% 100%;
-    border-top-right-radius: 50% 100%;
-    z-index: 10;
   }
   .AnimalsTextCarousel {
     background-color: rgba(255, 255, 255, 0.7);
@@ -888,4 +888,24 @@
     width: calc(var(--bubble-width) * 1.35) !important;
     height: calc(var(--bubble-width) * 1.35) !important;
   }
+}
+
+.bubbleImage, .bubbleImageWhite{
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  position: absolute;
+  width: 100%;
+}
+
+.bubbleImage{
+  bottom: -213px;
+  background-image: url(./Assets/Img/Bubbles.png);
+  height: 444px;
+}
+
+.bubbleImageWhite{
+  bottom: -318px;
+  background-image: url(./Assets/Img/BubblesWhite.png);
+  height: 344px;
 }
