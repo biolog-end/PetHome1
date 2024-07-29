@@ -1,7 +1,65 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import dog from './Assets/Img/dog.png';
 import './MainPage.css';
 import BubbleComponent from './BubbleComponent';
+const CircularSpinningText = ({ 
+  text, 
+  color = '#000', 
+  repetitions = 1, 
+  clockwise = true, 
+  paddingPercent = 5 
+}) => {
+  const [containerSize, setContainerSize] = useState(0);
+
+  React.useEffect(() => {
+    const updateSize = () => {
+      const container = document.querySelector('.AnimalsImageBackground');
+      if (container) {
+        setContainerSize(container.offsetWidth);
+      }
+    };
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  const createSpinningText = (text) => {
+    const fullText = text.repeat(repetitions);
+    const radius = containerSize / 2;
+    const padding = (paddingPercent / 100) * containerSize;
+    const adjustedRadius = radius - padding;
+    const fontSize = containerSize * 0.04; 
+
+    return [...fullText].map((char, index) => (
+      <span
+        key={index}
+        style={{
+          transform: `rotate(${index * (360 / fullText.length)}deg)`,
+          transformOrigin: `0 ${adjustedRadius}px`,
+          left: '50%',
+          position: 'absolute',
+          fontSize: `${fontSize}px`,
+          color: color,
+          top: `${padding}px`
+        }}
+      >
+        {char}
+      </span>
+    ));
+  };
+
+  return (
+    <div 
+      className="spinning-text" 
+      style={{
+        animation: `spin ${clockwise ? '20s' : '20s reverse'} linear infinite`
+      }}
+    >
+      {createSpinningText(text)}
+    </div>
+  );
+};
 const MainContent = () => {
   const blueTopBubbles = [
     { width: '2.6vw', top: '-100%', left: '2%', isFloating: true},
@@ -18,7 +76,7 @@ const MainContent = () => {
     { width: '0.6vw', top: '-63.6%', left: '22.7%', isFloating: true},
     { width: '1.1vw', top: '6%', left: '23.1%', isFloating: true},
     { width: '3vw', top: '-18%', left: '34%', isFloating: true},
-    { width: '4.5vw', top: '-27.6%', left: '45.2%', isFloating: true},
+    { width: '4.5vw', top: '-27.6%', left: '45.2%', isFloating: false},
     { width: '2vw', top: '1.9%', left: '45.6%', isFloating: true},
     { width: '3vw', top: '4.5%', left: '38.9%', isFloating: true},
     { width: '1.8vw', top: '-52%', left: '47.7%', isFloating: true},
@@ -38,7 +96,7 @@ const MainContent = () => {
     { width: '3.2vw', top: '-38%', right: '21.5%', isFloating: false},
     { width: '4vw', top: '3.9%', right: '19.9%', isFloating: true},
     { width: '4.6vw', top: '15%', right: '8.5%', isFloating: false},
-    { width: '4vw', top: '-67%', right: '-1.6%', isFloating: true},
+    { width: '4vw', top: '-67%', right: '-1.6%', isFloating: false},
     { width: '2vw', top: '-24.2%', right: '17.5%', isFloating: true},
     { width: '1.8vw', top: '-23%', right: '4.1%', isFloating: true},
     { width: '2vw', top: '-47%', right: '2%', isFloating: true},
@@ -136,27 +194,16 @@ const MainContent = () => {
     { width: '1.3vw', top: '76.8%', left: '29.5%', isFloating: true},
   ];
 
-  const bottomStaticBubbleConfigs = [
-    { width: '8vw', top: '5%', left: '23%' },
-    { width: '16vw', top: '45%', left: '14.1%' },
-    { width: '24.5vw', top: '25%', left: '30%' },
-    { width: '12vw', top: '-9%', left: '68%' },
-    { width: '11vw', top: '14%', left: '84%' },
-    { width: '18vw', top: '35%', left: '-3.6%' },
-    { width: '8vw', top: '99.9%', left: '25.4%' },
-    { width: '14vw', top: '22%', left: '55%' },
-    { width: '17vw', top: '47.9%', left: '68.4%' },
-    { width: '8.3vw', top: '98.4%', left: '10%' },
-    { width: '12vw', top: '81.8%', left: '53%' },
-    { width: '6vw', top: '108%', left: '65%' },
-    { width: '15vw', top: '69%', left: '86%' }
-  ];
+  const [activeText, setActiveText] = useState('CARE');
+  const [activeRepetitions, setActiveRepetitions] = useState(20);
+
+
   useEffect(() => {
     function IsElementInViewport(el) {
       const rect = el.getBoundingClientRect();
       return (
-        rect.top >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        rect.top >= 50 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)-50
       );
     }
     
@@ -202,7 +249,9 @@ const MainContent = () => {
       'https://static.tildacdn.com/tild3834-3839-4131-b564-633733303065/1615657997823.jpg',
       'https://aqua.laguna-land.ru/storage/app/media/uploaded-files/shutterstock_1915848625.jpg'
     ];
-    let AnimalsCurrentImageIndex = 2; 
+    const texts = ['CARE ', 'HEALTH ', 'PET CARE⠀', 'COMFORT '];
+    const repetitions = [20, 15, 10, 12];
+    let AnimalsCurrentImageIndex = 0; 
     const animalsCorouselSpin = {
       opacity: '1',
       animation: 'AnimalsSpinIn 1s ease-out forwards'
@@ -225,33 +274,24 @@ const MainContent = () => {
     }
 
     function AnimalsUpdateSliders() {
-      const containerWidth = document.querySelector('.AnimalsBlock').offsetWidth;
-      const scaleFactor = containerWidth / 1920;
-      const numberSlideHeight = 91 * scaleFactor + 1.5;
-      const titleSlideHeight = 125 * scaleFactor - 1;
-
-      AnimalsNumberSlider.style.transform = `translateY(-${AnimalsCurrentImageIndex * numberSlideHeight}px)`;
-      AnimalsTitleSlider.style.transform = `translateY(-${AnimalsCurrentImageIndex * titleSlideHeight}px)`;
+      const numberItems = AnimalsNumberSlider.children;
+      const titleItems = AnimalsTitleSlider.children;
+      
+      if (numberItems.length > 0 && titleItems.length > 0) {
+        const numberItemHeight = numberItems[0].offsetHeight;
+        const titleItemHeight = titleItems[0].offsetHeight;
+    
+        AnimalsNumberSlider.style.transform = `translateY(-${AnimalsCurrentImageIndex * numberItemHeight}px)`;
+        AnimalsTitleSlider.style.transform = `translateY(-${AnimalsCurrentImageIndex * titleItemHeight}px)`;
+      }
     }
 
     AnimalsCarousel.addEventListener('click', () => {
-      AnimalsCurrentRotation += Math.PI / 2; 
+      AnimalsCurrentRotation += Math.PI / 2;
       AnimalsCurrentImageIndex = (AnimalsCurrentImageIndex + 1) % AnimalsImages.length;
       
       AnimalsPositionItems();
-      
-      AnimalsNumberSlider.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-      AnimalsTitleSlider.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
       AnimalsUpdateSliders();
-      
-      setTimeout(() => {
-        AnimalsNumberSlider.style.transition = 'none';
-        AnimalsTitleSlider.style.transition = 'none';
-        if (AnimalsCurrentImageIndex === 0) {
-          AnimalsNumberSlider.style.transform = 'translateY(0)';
-          AnimalsTitleSlider.style.transform = 'translateY(0)';
-        }
-      }, 500);
       
       AnimalsMainImage.style.opacity = 0;
       
@@ -259,6 +299,9 @@ const MainContent = () => {
         AnimalsMainImage.src = AnimalsImages[AnimalsCurrentImageIndex];
         AnimalsMainImage.style.opacity = 1;
       }, 250);
+
+      setActiveText(texts[AnimalsCurrentImageIndex]);
+      setActiveRepetitions(repetitions[AnimalsCurrentImageIndex]);
     });
 
     AnimalsPositionItems();
@@ -714,50 +757,53 @@ const MainContent = () => {
       </div>
 
       {/* AnimalsBlock */}
-      <div className="AnimalsBlock">
-        <div className="bubbles-container" style={{marginTop: '43%', height: '32%', zIndex: '100'}}>
-          {blueTopBubbles.map((bubbleConfig, index) => (
-            <BubbleComponent key={index} config={bubbleConfig} index={index} className="bottom-static-bubble" />
-          ))}
-        </div>
-        <div className="AnimalsMainContent">
-          <div className="AnimalsTextCarousel">
-            <div className="AnimalsNumberContainer">
-              <div className="AnimalsNumberSlider" id="AnimalsNumberSlider">
+      <div class="AnimalsBlock">
+        <div class="AnimalsMainContent">
+          <div class="AnimalsTextCarousel">
+            <div class="AnimalsNumberContainer">
+              <div class="AnimalsNumberSlider" id="AnimalsNumberSlider">
                 <div>01</div>
                 <div>02</div>
                 <div>03</div>
                 <div>04</div>
               </div>
             </div>
-            <div className="AnimalsTitleContainer">
-              <div className="AnimalsTitleSlider" id="AnimalsTitleSlider">
-                <h2>CATS</h2>
-                <h2>DOGS</h2>
-                <h2>PARROTS</h2>
-                <h2>FISH</h2>
+            <hr/>
+            <div class="AnimalsTitleContainer">
+              <div class="AnimalsTitleSlider" id="AnimalsTitleSlider">
+                <h2>CARE</h2>
+                <h2>HEALTH</h2>
+                <h2>PET CARE</h2>
+                <h2>COMFORT</h2>
               </div>
             </div>
           </div>
-          <div className="AnimalsMainImageContainer">
-            <div className="AnimalsImageBackground">
-              <img id="AnimalsMainImage" src="https://static.tildacdn.com/tild3834-3839-4131-b564-633733303065/1615657997823.jpg" alt="Sleeping dog" className="AnimalsMainImage" />
+          <div class="AnimalsMainImageContainer">
+            <div class="AnimalsImageBackground">
+              <CircularSpinningText 
+                text={activeText}
+                color="white" 
+                repetitions={activeRepetitions} 
+                clockwise={true}
+                paddingPercent={2.2}
+              />
+              <img id="AnimalsMainImage" src="https://static.tildacdn.com/tild3834-3839-4131-b564-633733303065/1615657997823.jpg" alt="Sleeping dog" class="AnimalsMainImage" />
             </div>
           </div>
           <br /><br />
         </div>
-        <div className="AnimalsCarousel" id="AnimalsCarousel">
-          <div className="AnimalsCarouselItem">
-            <span className="AnimalsEmoji">🐱</span>
+        <div class="AnimalsCarousel" id="AnimalsCarousel">
+          <div class="AnimalsCarouselItem">
+            <span class="AnimalsEmoji">🐱</span>
           </div>
-          <div className="AnimalsCarouselItem">
-            <span className="AnimalsEmoji">🐠</span>
+          <div class="AnimalsCarouselItem">
+            <span class="AnimalsEmoji">🐠</span>
           </div>
-          <div className="AnimalsCarouselItem">
-            <span className="AnimalsEmoji">🦜</span>
+          <div class="AnimalsCarouselItem">
+            <span class="AnimalsEmoji">🦜</span>
           </div>
-          <div className="AnimalsCarouselItem">
-            <span className="AnimalsEmoji">🐶</span>
+          <div class="AnimalsCarouselItem">
+            <span class="AnimalsEmoji">🐶</span>
           </div>
         </div>
       </div>

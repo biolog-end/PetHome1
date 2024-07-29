@@ -28,3 +28,8 @@
   .special-bubble {
     cursor: pointer;
   }
+
+  .popped {
+    opacity: 0;
+    pointer-events: none;
+  }

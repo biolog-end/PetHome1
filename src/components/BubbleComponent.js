@@ -13,7 +13,6 @@ const BubbleComponent = ({ config, index, className }) => {
 
   useEffect(() => {
     if (isFloating) {
-      bubbleRef.current.style.animationPlayState = 'running';
       bubbleRef.current.style.animationDelay = `${Math.random() * 3}s`;
     }
   }, [isFloating]);
