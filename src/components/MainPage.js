@@ -29,24 +29,31 @@ const CircularSpinningText = ({
     const radius = containerSize / 2;
     const padding = (paddingPercent / 100) * containerSize;
     const adjustedRadius = radius - padding;
-    const fontSize = containerSize * 0.04; 
+    const fontSize = containerSize * 0.04;
 
-    return [...fullText].map((char, index) => (
-      <span
-        key={index}
-        style={{
-          transform: `rotate(${index * (360 / fullText.length)}deg)`,
-          transformOrigin: `0 ${adjustedRadius}px`,
-          left: '50%',
-          position: 'absolute',
-          fontSize: `${fontSize}px`,
-          color: color,
-          top: `${padding}px`
-        }}
-      >
-        {char}
-      </span>
-    ));
+    return [...fullText].map((char, index) => {
+      let angle = index * (360 / fullText.length);
+      if (char === 'L' || char === 'F') {
+        angle += 0.9;
+      }
+
+      return (
+        <span
+          key={index}
+          style={{
+            transform: `rotate(${angle}deg)`,
+            transformOrigin: `0 ${adjustedRadius}px`,
+            left: '50%',
+            position: 'absolute',
+            fontSize: `${fontSize}px`,
+            color: color,
+            top: `${padding}px`
+          }}
+        >
+          {char}
+        </span>
+      );
+    });
   };
 
   return (
@@ -250,7 +257,7 @@ const MainContent = () => {
       'https://aqua.laguna-land.ru/storage/app/media/uploaded-files/shutterstock_1915848625.jpg'
     ];
     const texts = ['CARE', 'HEALTH', 'PETCARE', 'COMFORT'];
-    const repetitions = [25, 15, 10, 12];
+    const repetitions = [25, 18, 13, 13];
     let AnimalsCurrentImageIndex = 0; 
     const animalsCorouselSpin = {
       opacity: '1',
