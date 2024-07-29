@@ -195,7 +195,7 @@ const MainContent = () => {
   ];
 
   const [activeText, setActiveText] = useState('CARE');
-  const [activeRepetitions, setActiveRepetitions] = useState(20);
+  const [activeRepetitions, setActiveRepetitions] = useState(25);
 
 
   useEffect(() => {
@@ -249,8 +249,8 @@ const MainContent = () => {
       'https://static.tildacdn.com/tild3834-3839-4131-b564-633733303065/1615657997823.jpg',
       'https://aqua.laguna-land.ru/storage/app/media/uploaded-files/shutterstock_1915848625.jpg'
     ];
-    const texts = ['CARE ', 'HEALTH ', 'PET CARE⠀', 'COMFORT '];
-    const repetitions = [20, 15, 10, 12];
+    const texts = ['CARE', 'HEALTH', 'PETCARE', 'COMFORT'];
+    const repetitions = [25, 15, 10, 12];
     let AnimalsCurrentImageIndex = 0; 
     const animalsCorouselSpin = {
       opacity: '1',
@@ -787,7 +787,7 @@ const MainContent = () => {
                 clockwise={true}
                 paddingPercent={2.2}
               />
-              <img id="AnimalsMainImage" src="https://static.tildacdn.com/tild3834-3839-4131-b564-633733303065/1615657997823.jpg" alt="Sleeping dog" class="AnimalsMainImage" />
+              <img id="AnimalsMainImage" src="https://img.freepik.com/premium-photo/tiny-kitten-finger-is-held-up-by-finger_727939-1176.jpg" alt="Sleeping dog" class="AnimalsMainImage" />
             </div>
           </div>
           <br /><br />
