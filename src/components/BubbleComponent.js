@@ -20,7 +20,7 @@ const BubbleComponent = ({ config, index, className }) => {
   const bubbleStyle = {
     ...config,
     height: config.width,
-    backgroundColor: isSpecial ? 'rgba(255, 0, 0, 1)' : '',
+    backgroundColor: isSpecial ? '#C4F4C3' : '',
     '--bubble-width': config.width,
     transition: 'all 0.3s ease-out',
     transform: isFirstPopped ? (isPopped ? 'scale(1.5)' : 'scale(1)') : '',

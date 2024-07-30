@@ -35,7 +35,7 @@ nav {
   top: -12px;
 }
 .logo:hover {
-  color: #D96704;
+  color: #FF7700;
 }
 .logo img {
   height: 37px;
@@ -53,7 +53,7 @@ nav {
   display: flex;
   justify-content: space-between;
   width: 34.5%;
-  margin: 25px 0 0 3.75%;
+  margin: 15px 0 0 3.75%;
 }
 .menu a {
   text-decoration: none;
@@ -70,7 +70,7 @@ nav {
   height: 2px;
   bottom: -5px;
   left: 0;
-  background-color: #D96704;
+  background-color: #FF7700;
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.3s ease-in-out;
@@ -80,7 +80,7 @@ nav {
   transform: scaleX(1);
 }
 .menu a:hover {
-  color: #D96704;
+  color: #FF7700;
 }
 .loginMenu{
   font-size: 13px;
@@ -90,7 +90,7 @@ nav {
   display: flex;
   justify-content: space-between;
   right: 7.35%;
-  top: 11px;
+  top: 5px;
 }
 .login-btn {
   color: #FF7700;

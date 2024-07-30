@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import dog from './Assets/Img/dog.png';
+import care from './Assets/Img/CARE.png';
+import comfort from './Assets/Img/COMFORT.png';
 import './MainPage.css';
 import BubbleComponent from './BubbleComponent';
 const CircularSpinningText = ({ 
@@ -11,7 +13,7 @@ const CircularSpinningText = ({
 }) => {
   const [containerSize, setContainerSize] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const updateSize = () => {
       const container = document.querySelector('.AnimalsImageBackground');
       if (container) {
@@ -32,22 +34,21 @@ const CircularSpinningText = ({
     const fontSize = containerSize * 0.04;
 
     return [...fullText].map((char, index) => {
-      let angle = index * (360 / fullText.length);
-      if (char === 'L' || char === 'F') {
-        angle += 0.9;
-      }
+      const angle = (index * 360) / fullText.length;
 
       return (
         <span
           key={index}
           style={{
-            transform: `rotate(${angle}deg)`,
-            transformOrigin: `0 ${adjustedRadius}px`,
-            left: '50%',
             position: 'absolute',
+            left: '50%',
+            top: `${padding}px`,
+            transform: `rotate(${angle}deg) translateX(-50%)`,
+            transformOrigin: `0 ${adjustedRadius}px`,
             fontSize: `${fontSize}px`,
             color: color,
-            top: `${padding}px`
+            display: 'inline-block',
+            whiteSpace: 'pre',
           }}
         >
           {char}
@@ -60,13 +61,14 @@ const CircularSpinningText = ({
     <div 
       className="spinning-text" 
       style={{
-        animation: `spin ${clockwise ? '20s' : '20s reverse'} linear infinite`
+        animation: `spin ${clockwise ? '20s' : '20s reverse'} linear infinite`,
       }}
     >
       {createSpinningText(text)}
     </div>
   );
 };
+
 const MainContent = () => {
   const blueTopBubbles = [
     { width: '2.6vw', top: '-100%', left: '2%', isFloating: true},
@@ -203,14 +205,46 @@ const MainContent = () => {
 
   const [activeText, setActiveText] = useState('CARE');
   const [activeRepetitions, setActiveRepetitions] = useState(25);
+  const isElementInViewport = (el) => {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 20 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) - 20
+    );
+  };
+  const [isVisible, setIsVisible] = useState(false);
+  const textRef = useRef(null);
 
+  const texts = ['CARE', 'HEALTH', 'PETCARE', 'COMFORT'];
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isElementInViewport(textRef.current)) {
+        setIsVisible(true);
+      }
+    };
 
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  const renderAnimatedText = (text) => {
+    return text.split('').map((char, index) => (
+      <span
+        key={index}
+        className={`ourServicesLetter ${isVisible ? 'visible' : ''}`}
+        style={{transitionDelay: `${Math.abs(index - text.length / 2) * 100}ms`}}
+      >
+        {char}
+      </span>
+    ));
+  };
   useEffect(() => {
     function IsElementInViewport(el) {
       const rect = el.getBoundingClientRect();
       return (
-        rect.top >= 50 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)-50
+        rect.top >= 20 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)-20
       );
     }
     
@@ -249,15 +283,15 @@ const MainContent = () => {
     const AnimalsCarouselItems = document.querySelectorAll('.AnimalsCarouselItem');
     const AnimalsNumberSlider = document.getElementById('AnimalsNumberSlider');
     const AnimalsTitleSlider = document.getElementById('AnimalsTitleSlider');
+    const AnimalsDescriptionSlider = document.getElementById('AnimalsDescriptionSlider');
     let AnimalsCurrentRotation = 0;
     const AnimalsImages = [
-      'https://img.freepik.com/premium-photo/tiny-kitten-finger-is-held-up-by-finger_727939-1176.jpg',
-      'https://images.unsplash.com/photo-1601758228041-f3b2795255f1',
+       care,
+       comfort,
       'https://static.tildacdn.com/tild3834-3839-4131-b564-633733303065/1615657997823.jpg',
       'https://aqua.laguna-land.ru/storage/app/media/uploaded-files/shutterstock_1915848625.jpg'
     ];
-    const texts = ['CARE', 'HEALTH', 'PETCARE', 'COMFORT'];
-    const repetitions = [25, 18, 13, 13];
+    const repetitions = [25, 18, 14, 14];
     let AnimalsCurrentImageIndex = 0; 
     const animalsCorouselSpin = {
       opacity: '1',
@@ -266,11 +300,11 @@ const MainContent = () => {
 
     window.addEventListener('scroll', () => applyStyles(document.querySelectorAll('.AnimalsCarousel'), animalsCorouselSpin));
     function AnimalsPositionItems() {
-      const a = 21; 
-      const b = 43; 
+      const a = 20.5; 
+      const b = 39.5; 
       const centerX = 74.5; 
       const centerY = 81;
-
+    
       AnimalsCarouselItems.forEach((item, index) => {
         const angle = (index / AnimalsCarouselItems.length) * 2 * Math.PI + AnimalsCurrentRotation;
         const x = centerX + a * Math.cos(angle) - 40; 
@@ -279,43 +313,67 @@ const MainContent = () => {
         item.style.top = `${y}%`;
       });
     }
-
+    AnimalsPositionItems();
+    
     function AnimalsUpdateSliders() {
       const numberItems = AnimalsNumberSlider.children;
       const titleItems = AnimalsTitleSlider.children;
-      
-      if (numberItems.length > 0 && titleItems.length > 0) {
+      const descriptionItems = AnimalsDescriptionSlider.children;
+    
+      if (numberItems.length > 0 && titleItems.length > 0 && descriptionItems.length > 0) {
         const numberItemHeight = numberItems[0].offsetHeight;
         const titleItemHeight = titleItems[0].offsetHeight;
+        const descriptionItemWidth = descriptionItems[0].offsetWidth;
     
         AnimalsNumberSlider.style.transform = `translateY(-${AnimalsCurrentImageIndex * numberItemHeight}px)`;
         AnimalsTitleSlider.style.transform = `translateY(-${AnimalsCurrentImageIndex * titleItemHeight}px)`;
+        AnimalsDescriptionSlider.style.transform = `translateX(-${AnimalsCurrentImageIndex * descriptionItemWidth}px)`;
+    
+        const currentDescription = descriptionItems[AnimalsCurrentImageIndex];
+        const lines = currentDescription.innerHTML.split('<br>');
+        currentDescription.innerHTML = lines.map(line => `<span>${line}</span>`).join('<br>');
+        
+        const spans = currentDescription.querySelectorAll('span');
+        spans.forEach((span, index) => {
+          setTimeout(() => {
+            span.style.animation = 'descriptionFadeInLeft 0.5s forwards';
+          }, index * 10); 
+        });
       }
     }
-
+    
     AnimalsCarousel.addEventListener('click', () => {
       AnimalsCurrentRotation += Math.PI / 2;
       AnimalsCurrentImageIndex = (AnimalsCurrentImageIndex + 1) % AnimalsImages.length;
-      
+    
       AnimalsPositionItems();
       AnimalsUpdateSliders();
-      
+    
       AnimalsMainImage.style.opacity = 0;
-      
+    
       setTimeout(() => {
         AnimalsMainImage.src = AnimalsImages[AnimalsCurrentImageIndex];
         AnimalsMainImage.style.opacity = 1;
       }, 250);
-
+    
       setActiveText(texts[AnimalsCurrentImageIndex]);
       setActiveRepetitions(repetitions[AnimalsCurrentImageIndex]);
     });
-
-    AnimalsPositionItems();
-    AnimalsUpdateSliders();
-    window.addEventListener('resize', () => {
-      AnimalsPositionItems();
-      AnimalsUpdateSliders();
+    document.querySelector('.Animalsbook-button').addEventListener('click', function(e) {
+      this.classList.remove('clicked');
+      void this.offsetWidth;
+      this.classList.add('clicked');
+      
+      let ripple = document.createElement('div');
+      this.appendChild(ripple);
+      let x = e.clientX - e.target.offsetLeft;
+      let y = e.clientY - e.target.offsetTop;
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      ripple.style.animation = 'ripple 0.6s linear';
+      ripple.addEventListener('animationend', function() {
+        ripple.remove();
+      });
     });
 
     // Corkboard JS
@@ -764,11 +822,14 @@ const MainContent = () => {
       </div>
 
       {/* AnimalsBlock */}
-      <div class="AnimalsBlock">
-        <div class="AnimalsMainContent">
-          <div class="AnimalsTextCarousel">
-            <div class="AnimalsNumberContainer">
-              <div class="AnimalsNumberSlider" id="AnimalsNumberSlider">
+      <div className="AnimalsBlock">
+        <h1 className="ourServicesText" ref={textRef}>
+          {renderAnimatedText("OUR SERVICES")}
+        </h1>
+        <div className="AnimalsMainContent">
+          <div className="AnimalsTextCarousel">
+            <div className="AnimalsNumberContainer">
+              <div className="AnimalsNumberSlider" id="AnimalsNumberSlider">
                 <div>01</div>
                 <div>02</div>
                 <div>03</div>
@@ -776,41 +837,51 @@ const MainContent = () => {
               </div>
             </div>
             <hr/>
-            <div class="AnimalsTitleContainer">
-              <div class="AnimalsTitleSlider" id="AnimalsTitleSlider">
-                <h2>CARE</h2>
-                <h2>HEALTH</h2>
-                <h2>PET CARE</h2>
-                <h2>COMFORT</h2>
+            <div className="AnimalsTitleContainer">
+              <div className="AnimalsTitleSlider" id="AnimalsTitleSlider">
+                <h2>{texts[0]}</h2>
+                <h2>{texts[1]}</h2>
+                <h2>{texts[2]}</h2>
+                <h2>{texts[3]}</h2>
               </div>
             </div>
           </div>
-          <div class="AnimalsMainImageContainer">
-            <div class="AnimalsImageBackground">
+          <div className="AnimalsDescriptionContainer">
+            <div className="AnimalsDescriptionSlider" id="AnimalsDescriptionSlider">
+              <h2>We carefully select our hotels to <br/> make your pets feel right at <br/> home.</h2>
+              <h2>We ensure that only professional <br/> veterinarians are present in our <br/> hotels to ensure the safety of <br/> your animal.</h2>
+              <h2>Our groomers will give your pet a <br/> fabulous experience!</h2>
+              <h2>Our hotels have the best <br/> conditions, your pet will <br/> definitely love it!</h2>
+            </div>
+          </div>
+          <div className="AnimalsMainImageContainer">
+            <div className="AnimalsImageBackground">
+              <div className="AnimalsMainImageHelper"/>
               <CircularSpinningText 
                 text={activeText}
-                color="white" 
+                color="#F2E8DF" 
                 repetitions={activeRepetitions} 
                 clockwise={true}
                 paddingPercent={2.2}
               />
-              <img id="AnimalsMainImage" src="https://img.freepik.com/premium-photo/tiny-kitten-finger-is-held-up-by-finger_727939-1176.jpg" alt="Sleeping dog" class="AnimalsMainImage" />
+              <img id="AnimalsMainImage" src={care} alt="Sleeping dog" class="AnimalsMainImage" />
             </div>
           </div>
           <br /><br />
+          <button class="Animalsbook-button">Book a hotel</button>
         </div>
-        <div class="AnimalsCarousel" id="AnimalsCarousel">
-          <div class="AnimalsCarouselItem">
-            <span class="AnimalsEmoji">🐱</span>
+        <div className="AnimalsCarousel" id="AnimalsCarousel">
+          <div className="AnimalsCarouselItem">
+            <div className="AnimalsEmoji petCare"/>
           </div>
-          <div class="AnimalsCarouselItem">
-            <span class="AnimalsEmoji">🐠</span>
+          <div className="AnimalsCarouselItem">
+            <div className="AnimalsEmoji health"/>
           </div>
-          <div class="AnimalsCarouselItem">
-            <span class="AnimalsEmoji">🦜</span>
+          <div className="AnimalsCarouselItem">
+            <div className="AnimalsEmoji care"/>
           </div>
-          <div class="AnimalsCarouselItem">
-            <span class="AnimalsEmoji">🐶</span>
+          <div className="AnimalsCarouselItem">
+            <div className="AnimalsEmoji comfort"/>
           </div>
         </div>
       </div>
