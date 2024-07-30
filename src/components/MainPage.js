@@ -1,73 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import dog from './Assets/Img/dog.png';
 import care from './Assets/Img/CARE.png';
 import comfort from './Assets/Img/COMFORT.png';
 import './MainPage.css';
 import BubbleComponent from './BubbleComponent';
-const CircularSpinningText = ({ 
-  text, 
-  color = '#000', 
-  repetitions = 1, 
-  clockwise = true, 
-  paddingPercent = 5 
-}) => {
-  const [containerSize, setContainerSize] = useState(0);
+import CircularSpinningText from './CircularSpinningText';
+import AnimatedText from './AnimatedText'
 
-  useEffect(() => {
-    const updateSize = () => {
-      const container = document.querySelector('.AnimalsImageBackground');
-      if (container) {
-        setContainerSize(container.offsetWidth);
-      }
-    };
-
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-
-  const createSpinningText = (text) => {
-    const fullText = text.repeat(repetitions);
-    const radius = containerSize / 2;
-    const padding = (paddingPercent / 100) * containerSize;
-    const adjustedRadius = radius - padding;
-    const fontSize = containerSize * 0.04;
-
-    return [...fullText].map((char, index) => {
-      const angle = (index * 360) / fullText.length;
-
-      return (
-        <span
-          key={index}
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: `${padding}px`,
-            transform: `rotate(${angle}deg) translateX(-50%)`,
-            transformOrigin: `0 ${adjustedRadius}px`,
-            fontSize: `${fontSize}px`,
-            color: color,
-            display: 'inline-block',
-            whiteSpace: 'pre',
-          }}
-        >
-          {char}
-        </span>
-      );
-    });
-  };
-
-  return (
-    <div 
-      className="spinning-text" 
-      style={{
-        animation: `spin ${clockwise ? '20s' : '20s reverse'} linear infinite`,
-      }}
-    >
-      {createSpinningText(text)}
-    </div>
-  );
-};
 
 const MainContent = () => {
   const blueTopBubbles = [
@@ -205,40 +144,8 @@ const MainContent = () => {
 
   const [activeText, setActiveText] = useState('CARE');
   const [activeRepetitions, setActiveRepetitions] = useState(25);
-  const isElementInViewport = (el) => {
-    const rect = el.getBoundingClientRect();
-    return (
-      rect.top >= 20 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) - 20
-    );
-  };
-  const [isVisible, setIsVisible] = useState(false);
-  const textRef = useRef(null);
 
   const texts = ['CARE', 'HEALTH', 'PETCARE', 'COMFORT'];
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isElementInViewport(textRef.current)) {
-        setIsVisible(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  const renderAnimatedText = (text) => {
-    return text.split('').map((char, index) => (
-      <span
-        key={index}
-        className={`ourServicesLetter ${isVisible ? 'visible' : ''}`}
-        style={{transitionDelay: `${Math.abs(index - text.length / 2) * 100}ms`}}
-      >
-        {char}
-      </span>
-    ));
-  };
   useEffect(() => {
     function IsElementInViewport(el) {
       const rect = el.getBoundingClientRect();
@@ -259,8 +166,6 @@ const MainContent = () => {
         }
       });
     }
-    
-
     
     const animalsVision = {
       opacity: '1',
@@ -336,8 +241,8 @@ const MainContent = () => {
         const spans = currentDescription.querySelectorAll('span');
         spans.forEach((span, index) => {
           setTimeout(() => {
-            span.style.animation = 'descriptionFadeInLeft 0.5s forwards';
-          }, index * 10); 
+            span.style.animation = 'descriptionFadeInLeft 0.6s forwards';
+          }, index * 15); 
         });
       }
     }
@@ -823,9 +728,12 @@ const MainContent = () => {
 
       {/* AnimalsBlock */}
       <div className="AnimalsBlock">
-        <h1 className="ourServicesText" ref={textRef}>
-          {renderAnimatedText("OUR SERVICES")}
-        </h1>
+        <AnimatedText 
+          text="OUR SERVICES" 
+          className="ourServicesText"
+          letterClassName="ourServicesLetter"
+          spaceClassName="ourServiceSpace"
+        />
         <div className="AnimalsMainContent">
           <div className="AnimalsTextCarousel">
             <div className="AnimalsNumberContainer">
@@ -863,6 +771,7 @@ const MainContent = () => {
                 repetitions={activeRepetitions} 
                 clockwise={true}
                 paddingPercent={2.2}
+                containerClassName="AnimalsImageBackground"
               />
               <img id="AnimalsMainImage" src={care} alt="Sleeping dog" class="AnimalsMainImage" />
             </div>

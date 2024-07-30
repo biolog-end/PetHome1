@@ -66,27 +66,25 @@
   object-fit: cover;
   transition: transform 0.5s ease;
 }
-.top-left-text {
-  line-height: 1.3;
+.top-left-text,.bottom-right-text{
   position: absolute;
-  top: 254px;
-  left: 8.6%;
   color: #ffffff;
   font-size: 6vw;
-  font-weight: bold;
+  font-weight: 900;
   opacity: 0;
+}
+.top-left-text {
+  line-height: 1.31;
+  top: 251px;
+  left: 8.2%;
   animation: slideInLeft 1s ease-out 1s forwards;
 }
 .bottom-right-text {
+  letter-spacing: -1px;
   line-height: 1.3;
   text-align: right;
-  position: absolute;
   bottom: 27.8%;
   right: 8.6%;
-  color: #ffffff;
-  font-size: 6vw;
-  font-weight: bold;
-  opacity: 0;
   animation: slideInRight 1s ease-out 1.5s forwards;
 }
 .bottom-content {
@@ -170,7 +168,7 @@
     font-size: 10.4vw;
     font-weight: 900;
     color: #FF7700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
     line-height: 1;
     text-align: center;
     white-space: nowrap;
@@ -184,6 +182,10 @@
   .ourServicesLetter.visible {
     opacity: 1;
     transform: translateY(0) rotate(0deg);
+  }
+  .ourServiceSpace{
+    display: inline-block;
+    width: 0.3em;
   }
   .AnimalsTopText {
     font-size: 2.5vw;
@@ -449,8 +451,9 @@
   left: 8.3%;
   top: 48.7%;
   border: 0;
+  letter-spacing: 0.1px;
   padding: 19px 6.7%;
-  font-size: 18px;
+  font-size: 1.2vw;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
