@@ -33,7 +33,8 @@ const CircularSpinningText = ({
   
       return [...fullText].map((char, index) => {
         const angle = (index * 360) / fullText.length;
-  
+        const extraRotation = (char === 'L' || char === 'F') ? 0.3 : 0;
+
         return (
           <span
             key={index}
@@ -41,7 +42,7 @@ const CircularSpinningText = ({
               position: 'absolute',
               left: '50%',
               top: `${padding}px`,
-              transform: `rotate(${angle}deg) translateX(-50%)`,
+              transform: `rotate(${angle + extraRotation}deg) translateX(-50%)`,
               transformOrigin: `0 ${adjustedRadius}px`,
               fontSize: `${fontSize}px`,
               color: color,

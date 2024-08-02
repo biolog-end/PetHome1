@@ -13,6 +13,10 @@ const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    setMode(initialMode);
+  }, [initialMode]);
+
+  useEffect(() => {
     const handleEsc = (event) => {
       if (event.keyCode === 27) onClose();
     };
@@ -21,7 +25,6 @@ const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
       window.removeEventListener('keydown', handleEsc);
     };
   }, [onClose]);
-
 
   const validateUsername = (username) => {
     if (username.length < 3) {
@@ -119,21 +122,21 @@ const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
             Sign in
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="auth-form-group">
-            <label htmlFor="nickname">Your nickname</label>
-            <input
-              type="text"
-              id="nickname"
-              name="nickname"
-              value={formData.nickname}
-              onChange={handleInputChange}
-              placeholder={`Please type here your username...`}
-              className={errors.nickname ? 'auth-error' : ''}
-            />
-            {errors.nickname && <p className="auth-error-message">{errors.nickname}</p>}
-          </div>
-          {mode === 'signup' && (
+        <div className={`auth-form-container ${mode}`}>
+          <form onSubmit={handleSubmit} className="auth-form auth-form-signup">
+            <div className="auth-form-group">
+              <label htmlFor="signup-nickname">Your nickname</label>
+              <input
+                type="text"
+                id="signup-nickname"
+                name="nickname"
+                value={formData.nickname}
+                onChange={handleInputChange}
+                placeholder="Please type here your username..."
+                className={errors.nickname ? 'auth-error' : ''}
+              />
+              {errors.nickname && <p className="auth-error-message">{errors.nickname}</p>}
+            </div>
             <div className="auth-form-group">
               <label htmlFor="contact">Email or phone number</label>
               <input
@@ -147,41 +150,77 @@ const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
               />
               {errors.contact && <p className="auth-error-message">{errors.contact}</p>}
             </div>
-          )}
-          <div className="auth-form-group">
-            <label htmlFor="password">Password</label>
-            <div className="auth-password-input">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                placeholder="Please type here your password..."
-                className={errors.password ? 'auth-error' : ''}
-              />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="auth-password-toggle"
-              >
-                {showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
-              </button>
+            <div className="auth-form-group">
+              <label htmlFor="signup-password">Password</label>
+              <div className="auth-password-input">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="signup-password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Please type here your password..."
+                  className={errors.password ? 'auth-error' : ''}
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="auth-password-toggle"
+                >
+                  {showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
+                </button>
+              </div>
+              {errors.password && <p className="auth-error-message">{errors.password}</p>}
             </div>
-            {errors.password && <p className="auth-error-message">{errors.password}</p>}
-          </div>
-          {mode === 'signup' && (
             <p className="auth-password-hint">*at least 8 characters, including a number</p>
-          )}
-          {mode === 'signin' && (
+            <button type="submit" className="auth-submit-button">
+              Join us
+            </button>
+          </form>
+          <form onSubmit={handleSubmit} className="auth-form auth-form-signin">
+            <div className="auth-form-group">
+              <label htmlFor="signin-nickname">Your nickname</label>
+              <input
+                type="text"
+                id="signin-nickname"
+                name="nickname"
+                value={formData.nickname}
+                onChange={handleInputChange}
+                placeholder="Please type here your username..."
+                className={errors.nickname ? 'auth-error' : ''}
+              />
+              {errors.nickname && <p className="auth-error-message">{errors.nickname}</p>}
+            </div>
+            <div className="auth-form-group">
+              <label htmlFor="signin-password">Password</label>
+              <div className="auth-password-input">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="signin-password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Please type here your password..."
+                  className={errors.password ? 'auth-error' : ''}
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="auth-password-toggle"
+                >
+                  {showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
+                </button>
+              </div>
+              {errors.password && <p className="auth-error-message">{errors.password}</p>}
+            </div>
             <button type="button" className="auth-forgot-password" onClick={handleForgotPassword}>
               Forgot password?
             </button>
-          )}
-          <button type="submit" className="auth-submit-button">
-            {mode === 'signup' ? 'Join us' : 'Sign in'}
-          </button>
-        </form>
+            <button type="submit" className="auth-submit-button">
+              Sign in
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

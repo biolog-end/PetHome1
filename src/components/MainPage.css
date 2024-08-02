@@ -69,14 +69,14 @@
 .top-left-text,.bottom-right-text{
   position: absolute;
   color: #ffffff;
-  font-size: 6vw;
   font-weight: 900;
   opacity: 0;
 }
 .top-left-text {
-  line-height: 1.31;
+  line-height: 1.36;
   top: 251px;
   left: 8.2%;
+  font-size: 5.8vw;
   animation: slideInLeft 1s ease-out 1s forwards;
 }
 .bottom-right-text {
@@ -85,6 +85,7 @@
   text-align: right;
   bottom: 27.8%;
   right: 8.6%;
+  font-size: 6vw;
   animation: slideInRight 1s ease-out 1.5s forwards;
 }
 .bottom-content {
@@ -165,6 +166,7 @@
 
   /*AnimalsBlock*/
   .ourServicesText {
+    margin-top: 110px;
     font-size: 10.4vw;
     font-weight: 900;
     color: #FF7700;
@@ -248,6 +250,7 @@
     height: 33%;
     overflow: hidden;
     text-align: left;
+    font-weight: 900;
   }
   .AnimalsNumberSlider {
     transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -263,6 +266,7 @@
     position: absolute;
     width: 100%;
     transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    font-weight: 900;
   }
   
   .AnimalsDescriptionContainer {
@@ -281,7 +285,7 @@
   
   .AnimalsDescriptionSlider h2 {
     font-size: 0.9vw;
-    color: #395873;
+    color: #000000;
     margin: 0;
     flex: 0 0 100%;
     text-align: left;
@@ -370,7 +374,7 @@
     position: absolute;
     width: 50%;
     height: 32%;
-    right: -22.5%;
+    right: -22.35%;
     top: 36.7%;
     opacity: 0;
     transform-origin: 44.5% 61.8%;
@@ -396,7 +400,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border: 0.6vw solid #FF7700;
+    border: 0.4vw solid #FF7700;
     pointer-events: none;
     border-radius: 50%;
   }
@@ -413,6 +417,8 @@
   }
   .care{
     background-image: url('./Assets/Img/CareIcon.png');
+    width: 50%;
+    height: 50%;
   }
   .petCare{
     background-image: url('./Assets/Img/PetCareIcon.png');
@@ -433,6 +439,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  font-weight: 900;
 }
 
 .AnimalsTitleSlider > h2 {
@@ -516,163 +523,211 @@
 
   /*corkboard*/
 
-  .corkboardBase{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          background-color: #395873;
-          padding: 1px 0 100px 0;
-      }
-      .corkboard {
-          width: 80%;
-          height: 653px;
-          background-color: #F2AE72;
-          box-shadow: inset 0 0 70px rgba(38,17,13,0.5), 0 0 30px rgba(38,17,13,0.3);
-          position: relative;
-          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><filter id="shadow"><feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="%23000" flood-opacity="0.3"/></filter><circle cx="16" cy="16" r="14" fill="%23f9d71c" stroke="%23e2c219" stroke-width="2" filter="url(%23shadow)"/><circle cx="16" cy="16" r="6" fill="%23e2c219"/></svg>') 16 16, auto;
-      }
-      .corkButton {
-          position: absolute;
-          width: 5.12vw;
-          height: 5.12vw;
-          max-width: 59px;
-          max-height: 59px;
-          background: radial-gradient(circle, #ffeb3b 0%, #fbc02d 100%);
-          border: 3px solid #f57f17;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-weight: 700;
-          color: #F2E8DF;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 6px rgba(38,17,13,0.1), inset 0 -4px 4px rgba(38,17,13,0.2), inset 0 4px 4px rgba(242,232,223,0.2);
-          opacity: 0;
-          pointer-events: none;
-          text-shadow: 1px 1px 2px rgba(38,17,13,0.3);
-      }
-      .corkButton:hover {
-          transform: scale(1.1);
-          box-shadow: 0 6px 8px rgba(38,17,13,0.15), inset 0 -4px 4px rgba(38,17,13,0.2), inset 0 4px 4px rgba(242,232,223,0.2);
-      }
-      .corkButton:active {
-          transform: scale(0.9);
-          box-shadow: 0 2px 4px rgba(38,17,13,0.1), inset 0 -2px 2px rgba(38,17,13,0.2), inset 0 2px 2px rgba(242,232,223,0.2);
-      }
-      .corkNote {
-          position: absolute;
-          width: 16.32vw;
-          height: 22.57vw;
-          max-width: 188px;
-          max-height: 260px;
-          background: #F2E8DF;
-          box-shadow: 3px 3px 7px rgba(38,17,13,0.3);
-          padding: 1.3vw;
-          font-size: 1.39vw;
-          display: none;
-          z-index: 10;
-          transform-origin: center top;
-          border-radius: 5px;
-          overflow: hidden;
-      }
-      .corkNote::before {
-          content: '';
-          position: absolute;
-          top: 16%;
-          left: 48%;
-          width: 5.38vw;
-          height: 5.38vw;
-          max-width: 62px;
-          max-height: 62px;
-          background: radial-gradient(circle, #f44336 0%, #d32f2f 100%);
-          border-radius: 50%;
-          transform: translate(-50%, -50%);
-      }
-      .corkNoteImage {
-          width: 100%;
-          height: 75%;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-      }
-      .corkNoteText {
-          height: 25%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          padding: 0.43vw;
-          font-size: 0.9vw;
-          color: #26110D;
-      }
-      @keyframes corkPinned {
-          0% {
-              transform: scale(0.1) rotate(var(--start-rotation));
-          }
-          40% {
-              transform: scale(1.3) rotate(calc(var(--start-rotation) - 35deg));
-          }
-          80% {
-              transform: scale(0.95) rotate(calc(var(--start-rotation) - 15deg));
-          }
-          100% {
-              transform: scale(1) rotate(var(--end-rotation));
-          }
-      }
-      @keyframes corkFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-      }
-      @keyframes corkFadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-      }
-      #corkButton1 { top: 13.3%; left: 27.05%; }
-      #corkButton2 { top: 15.1%; right: 11.9%; }
-      #corkButton3 { bottom: 38.5%; left: 11.85%; }
-      #corkButton4 { bottom: 32.9%; right: 23.2%; }
-      .corkTextBlock {
-          position: absolute;
-          top: 46%;
-          left: 55%;
-          width: 45%;
-          height: 5.82vw;
-          max-height: 67px;
-          transform: translate(-50%, -50%);
-          background-color: #F2E8DF;
-          padding: 1.74vw;
-          text-align: center;
-          z-index: 5;
-          max-width: 80%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: #26110D;
-          border-radius: 10px;
-          box-shadow: 0 4px 6px rgba(38,17,13,0.1);
-          font-size: 1.39vw;
-      }
-
-      .corkActionButton {
-          position: absolute;
-          bottom: 4.77vw;
-          right: 7%;
-          padding: 1.74vw 4.5%;
-          background-color: #395873;
-          color: #F2E8DF;
-          border: none;
-          cursor: pointer;
-          z-index: 20;
-          transition: all 0.3s;
-          border-radius: 5px;
-          font-size: 1.22vw;
-      }
-      .corkActionButton:hover {
-          background-color: #D96704;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 6px rgba(38,17,13,0.2);
-      }
+  .corkboardBase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #395873;
+  }
+  .corkboard {
+    width: 100%;
+    height: 1717px;
+    background-color: #F2AE72;
+    box-shadow: inset 0px 0px 6px 17px rgba(0, 0, 0, 0.27);
+    position: relative;
+    background-image: url(./Assets/Img/corkboard.png);
+  }
+  .corkSoap, .corkDuck, .corkLeaf{
+    position: absolute;
+    background-size: contain; 
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .corkLeaf{
+    background-image: url(./Assets/Img/Listik.png);
+    width: 12.2vw;
+    height: 12.2vw;
+    left: 35.9%;
+    top: 18.8%;
+    -webkit-user-drag: none; 
+    user-drag: none;
+    user-select: none;
+  }
+  #leafCanvas {
+    position: absolute;
+    left: 36.2%;
+    top: 19.25%;
+    width: 10.8vw;
+    height: 10.45vw;
+    mix-blend-mode: hard-light;
+    cursor: auto;
+  }
+  .corkSoap{
+    background-image: url(./Assets/Img/Soap.png);
+    width: 39vw;
+    height: 34vw;
+    right: 0%;
+    top: -11.9%;
+    cursor: auto;
+  }
+  .corkDuck{
+    background-image: url(./Assets/Img/Duck.png);
+    width: 33.5vw;
+    height: 47.5vw;
+    left: 0%;
+    bottom: 6%;
+  }
+  .corkHeader{
+    text-transform: uppercase;
+    margin: 0;
+    position: absolute;
+    font-size: 5vw;
+    font-weight: 900;
+    top: 58px;
+    left: 8.2%;
+    width: 50%;
+    user-select: none;
+  }
+  .corkButton {
+    position: absolute;
+    width: 5.12vw;
+    height: 5.12vw;
+    max-width: 43px;
+    max-height: 43px;
+    background: #F2AD72;
+    border: 10px solid #f57f17;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.6vw;
+    color: #FF7700;
+    transition: all 0.3s ease;
+  }
+  .corkButton:hover {
+    transform: scale(1.1);
+  }
+  .corkButton:active {
+    transform: scale(0.9);
+  }
+  .corkNote {
+    position: absolute;
+    width: 20.52vw;
+    height: 28.17vw;
+    background: #FFFFFF;
+    box-shadow: 10px 15px 16px rgb(38 17 13 / 45%);
+    padding: 1.3vw;
+    font-size: 1.39vw;
+    z-index: 10;
+    transform-origin: center top;
+    overflow: hidden;
+  }
+  .corkNote::before {
+    content: '';
+    position: absolute;
+    top: 10.5%;
+    left: 49.5%;
+    width: 4.98vw;
+    height: 4.78vw;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .corkNoteNumber {
+    position: absolute;
+    left: 4.2%;
+    bottom: 28.8%;
+    font-size: 1.2vw;
+    font-weight: 900;
+  }
+  .corkNoteNumber::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1.5px;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(1);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .corkNoteNumber:hover::after {
+    transform: scaleX(0);
+    transform-origin: bottom left;
+  }
+  .corkNoteImage {
+    width: 99%;
+    height: 63%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 4px dashed #F2E8DF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .corkNoteText, .corkNoteSubText{
+    margin-left: -1.8%;
+  }
+  .corkNoteText {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 55px;
+    font-weight: bold;
+    font-size: 1.21vw;
+    letter-spacing: 0px;
+  }
+  .corkNoteSubText {
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7vw;
+    letter-spacing: 0.09px;
+    margin-top: -9px;
+    color: #26110D;
+  }
+  @keyframes corkPinned {
+    0% { transform: scale(0.1) rotate(var(--start-rotation)); }
+    40% { transform: scale(1.3) rotate(calc(var(--start-rotation) - 35deg)); }
+    80% { transform: scale(0.95) rotate(calc(var(--start-rotation) - 15deg)); }
+    100% { transform: scale(1) rotate(var(--end-rotation)); }
+  }
+  #corkButton1 { top: 20.7%; left: 18.75%; }
+  #corkButton2 { top: 21.3%; right: 29.9%;}
+  #corkButton3 { bottom: 34.8%; left: 42.15%; }
+  #corkButton4 { bottom: 37%; right: 15.6%; }
+  #corkNote1::before, #corkNote1 .corkNoteNumber::after { background: #4E86DA; }
+  #corkNote2::before, #corkNote2 .corkNoteNumber::after { background: #589B5B; }
+  #corkNote3::before, #corkNote3 .corkNoteNumber::after { background: #D971BC; }
+  #corkNote4::before, #corkNote4 .corkNoteNumber::after { background: #5B30A2; }
+  #corkNote1 .corkNoteText, #corkNote1 .corkNoteNumber { color: #395874; }
+  #corkNote2 .corkNoteText, #corkNote2 .corkNoteNumber { color: #589B5B; }
+  #corkNote3 .corkNoteText, #corkNote3 .corkNoteNumber { color: #D971BC; }
+  #corkNote4 .corkNoteText, #corkNote4 .corkNoteNumber { color: #5B30A2; }
+.corkActionButton {
+    position: absolute;
+    bottom: 5.67vw;
+    right: 8.4%;
+    padding: 1.24vw 7.5%;
+    background-color: #FF7700;
+    color: #F2E8DF;
+    border: none;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s;
+    border-radius: 22px;
+    font-size: 1.32vw;
+}
+.corkActionButton:hover {
+    background-color: #D96704;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(38,17,13,0.2);
+} 
 
 /*Revievs*/
 .review-testimonials-section {
@@ -924,36 +979,6 @@
     opacity: 0.8;
   }
 }
-@media (min-width: 1152px) {
-  .corkButton {
-      width: 59px;
-      height: 59px;
-  }
-  .corkNote {
-      width: 188px;
-      height: 260px;
-      padding: 15px;
-  }
-  .corkNote::before {
-      width: 62px;
-      height: 62px;
-  }
-  .corkNoteText {
-      padding: 5px;
-      font-size: 14px;
-  }
-  .corkTextBlock {
-      height: 67px;
-      padding: 20px;
-      font-size: 16px;
-  }
-  .corkActionButton {
-      bottom: 55px;
-      padding: 20px 4.5%;
-      font-size: 14px;
-  }
-}
-
 @media (max-width: 1200px) {
   .review-testimonial-card {
       flex: 0 0 calc(33.33% - 20px);
@@ -1088,19 +1113,3 @@
 }
 
 
-.spinning-text {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  animation: spin 20s linear infinite;
-}
-.spinning-text span {
-  position: absolute;
-  left: 50%;
-}
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
