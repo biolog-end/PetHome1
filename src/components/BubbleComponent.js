@@ -66,7 +66,8 @@ const BubbleComponent = ({ config, index, className }) => {
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
-    oscillator.start();
+    oscillator.start();// register pidtv skud vhid vihid
+    // asp.net core web api
     oscillator.stop(audioContext.currentTime + 0.1);
   };
 

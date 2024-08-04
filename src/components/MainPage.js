@@ -414,7 +414,7 @@ const MainContent = () => {
         const card = document.createElement('div');
         card.className = 'review-testimonial-card';
         card.innerHTML = `
-          <img src="https://place.dog/${298 + index}/${198 + index}" alt="Милая собака" class="review-testimonial-image">
+          <img src="https://placedog.net/${298 + index}/${198 + index}" alt="Милая собака" class="review-testimonial-image">
           <p class="review-testimonial-content">"${testimonial}"</p>
         `;
         

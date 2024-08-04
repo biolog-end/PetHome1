@@ -12,14 +12,14 @@ const Footer = () => {
     }
     
     const basementDogImages = [
-      { src: "https://place.dog/300/200", alt: "Cute dog", width: 150, height: 100, top: 20, left: 5 },
-      { src: "https://place.dog/400/300", alt: "Playful dog", width: 200, height: 150, top: 150, left: 30 },
-      { src: "https://place.dog/250/250", alt: "Happy dog", width: 125, height: 125, top: 100, left: 60 },
-      { src: "https://place.dog/350/200", alt: "Sleepy dog", width: 175, height: 100, top: 220, left: 75 },
-      { src: "https://place.dog/200/300", alt: "Curious dog", width: 100, height: 150, top: 30, left: 45 },
-      { src: "https://place.dog/320/240", alt: "Excited dog", width: 160, height: 120, top: 180, left: 15 },
-      { src: "https://place.dog/280/220", alt: "Lazy dog", width: 140, height: 110, top: 70, left: 85 },
-      { src: "https://place.dog/360/280", alt: "Friendly dog", width: 180, height: 140, top: 10, left: 5 }
+      { src: "https://placedog.net/300/200", alt: "Cute dog", width: 150, height: 100, top: 20, left: 5 },
+      { src: "https://placedog.net/400/300", alt: "Playful dog", width: 200, height: 150, top: 150, left: 30 },
+      { src: "https://placedog.net/250/250", alt: "Happy dog", width: 125, height: 125, top: 100, left: 60 },
+      { src: "https://placedog.net/350/200", alt: "Sleepy dog", width: 175, height: 100, top: 220, left: 75 },
+      { src: "https://placedog.net/200/300", alt: "Curious dog", width: 100, height: 150, top: 30, left: 45 },
+      { src: "https://placedog.net/320/240", alt: "Excited dog", width: 160, height: 120, top: 180, left: 15 },
+      { src: "https://placedog.net/280/220", alt: "Lazy dog", width: 140, height: 110, top: 70, left: 85 },
+      { src: "https://placedog.net/360/280", alt: "Friendly dog", width: 180, height: 140, top: 10, left: 5 }
     ];
 
     basementDogImages.forEach(dog => {

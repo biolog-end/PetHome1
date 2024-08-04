@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import './AuthComponent.css';
+import authService from './authService';
 
 const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
   const [mode, setMode] = useState(initialMode);
@@ -72,31 +73,56 @@ const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
     setErrors({ ...errors, [name]: '' });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
 
     if (mode === 'signup') {
       newErrors.nickname = validateUsername(formData.nickname);
       newErrors.contact = validateContact(formData.contact);
+      newErrors.password = validatePassword(formData.password);
     } else {
       newErrors.nickname = validateUsername(formData.nickname);
+      newErrors.password = validatePassword(formData.password);
     }
-    newErrors.password = validatePassword(formData.password);
 
     setErrors(newErrors);
 
     if (Object.values(newErrors).every(error => error === "")) {
-      console.log('Form submitted:', formData);
-      onClose();
+      try {
+        if (mode === 'signup') {
+          await authService.register(formData.nickname, formData.contact, formData.password);
+          console.log('Здесь можно добавить сообщение об успешной регистрации');
+          // Здесь можно добавить сообщение об успешной регистрации
+        } else {
+          const data = await authService.login(formData.nickname, formData.password);
+          console.log('Здесь можно добавить обработку успешного входа, например, перенаправление на другую страницу');
+          // Здесь можно добавить обработку успешного входа, например, перенаправление на другую страницу
+        }
+        onClose();
+      } catch (error) {
+        // Обработка ошибок от сервера
+        setErrors({ ...errors, server: error.message });
+      }
     }
   };
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleForgotPassword = () => alert("Forgot password functionality not implemented yet.");
+  const handleForgotPassword = async () => {
+    const email = prompt("Please enter your email address");
+    if (email) {
+      try {
+        await authService.forgotPassword(email);
+        alert("If an account with that email exists, we've sent password reset instructions.");
+      } catch (error) {
+        alert("An error occurred. Please try again.");
+      }
+    }
+  };
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) onClose();
@@ -107,6 +133,7 @@ const AuthComponent = ({ isOpen, onClose, initialMode = 'signup' }) => {
   return (
     <div className="auth-overlay" onClick={handleOverlayClick}>
       <div className="auth-modal">
+        {errors.server && <p className="auth-error-message">{errors.server}</p>}
         <button onClick={onClose} className="auth-close-button">&times;</button>
         <div className="auth-tabs">
           <button
