@@ -1,0 +1,396 @@
+/*corkboard*/
+
+.corkboardBase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #395873;
+}
+
+.corkboard {
+  width: 100%;
+  height: 1717px;
+  background-color: #F2AE72;
+  box-shadow: inset 0px 0px 6px 17px rgba(0, 0, 0, 0.27);
+  position: relative;
+  background-image: url(../Assets/Img/corkboard.png);
+}
+
+.corkboard.mobile {
+  height: auto;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.corkSoap, .corkDuck, .corkLeaf{
+  position: absolute;
+  background-size: contain; 
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.corkLeaf{
+  background-image: url(../Assets/Img/Listik.png);
+  width: 12.2vw;
+  height: 12.2vw;
+  left: 35.9%;
+  top: 18.8%;
+  -webkit-user-drag: none; 
+  user-drag: none;
+  user-select: none;
+}
+
+#leafCanvas {
+  position: absolute;
+  left: 36.2%;
+  top: 19.25%;
+  width: 10.8vw;
+  height: 10.45vw;
+  mix-blend-mode: hard-light;
+  cursor: auto;
+}
+
+.corkSoap{
+  background-image: url(../Assets/Img/Soap.png);
+  width: 39vw;
+  height: 34vw;
+  right: 0%;
+  top: -11.9%;
+  cursor: auto;
+}
+
+.corkDuck{
+  background-image: url(../Assets/Img/Duck.png);
+  width: 33.5vw;
+  height: 47.5vw;
+  left: 0%;
+  bottom: 6%;
+}
+
+.corkHeader{
+  text-transform: uppercase;
+  margin: 0;
+  position: absolute;
+  font-size: 5vw;
+  font-weight: 900;
+  top: 58px;
+  left: 8.2%;
+  width: 50%;
+  user-select: none;
+}
+
+.corkboard.mobile .corkHeader {
+  position: relative;
+  font-size: 8vw;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.corkButton {
+  position: absolute;
+  width: 5.12vw;
+  height: 5.12vw;
+  max-width: 43px;
+  max-height: 43px;
+  background: #F2AD72;
+  border: 10px solid #f57f17;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.6vw;
+  color: #FF7700;
+  transition: all 0.3s ease;
+}
+
+.corkButton.mobile {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  margin: 10px auto;
+}
+
+.corkButton:hover {
+  transform: scale(1.1);
+}
+
+.corkButton:active {
+  transform: scale(0.9);
+}
+.corkNote {
+  position: absolute;
+  width: 20.52vw;
+  height: 28.17vw;
+  background: #FFFFFF;
+  box-shadow: 10px 15px 16px rgb(38 17 13 / 45%);
+  padding: 1.3vw;
+  font-size: 1.39vw;
+  z-index: 10;
+  transform-origin: center top;
+  overflow: hidden;
+}
+
+.corkNote.mobile {
+  position: relative;
+  width: 90%;
+  height: auto;
+  margin: 20px auto;
+  font-size: 16px;
+  padding: 15px;
+}
+
+.corkNote::before {
+  content: '';
+  position: absolute;
+  top: 10.5%;
+  left: 49.5%;
+  width: 4.98vw;
+  height: 4.78vw;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.corkNote.mobile::before {
+  width: 30px;
+  height: 30px;
+  top: 15px;
+  left: 15px;
+  transform: none;
+}
+
+.corkNoteNumber {
+  position: absolute;
+  left: 4.2%;
+  bottom: 28.8%;
+  font-size: 1.2vw;
+  font-weight: 900;
+}
+
+.corkNote.mobile .corkNoteNumber {
+  position: relative;
+  left: 1%;
+  bottom: -6px;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.corkNote.mobile .corkNoteNumber::after {
+  content: '';
+  position: absolute;
+  width: 94%;
+  height: 1.5px;
+  bottom: 42%;
+  left: 5%;
+  transform: scaleX(1);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.corkNoteNumber::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1.5px;
+  bottom: 0;
+  left: 0;
+  transform: scaleX(1);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.corkNoteNumber:hover::after {
+  transform: scaleX(0);
+  transform-origin: bottom left;
+}
+
+.corkNoteImage {
+  width: 99%;
+  height: 63%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.corkNoteImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+}
+
+.corkNote.mobile .corkNoteImage {
+  height: 150px;
+}
+
+.corkNoteText, .corkNoteSubText {
+  margin-left: -1.8%;
+}
+
+.corkNote.mobile .corkNoteText,
+.corkNote.mobile .corkNoteSubText {
+  margin-left: 0;
+}
+
+.corkNoteText {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 55px;
+  font-weight: bold;
+  font-size: 1.21vw;
+  letter-spacing: 0px;
+}
+
+.corkNote.mobile .corkNoteText {
+  height: auto;
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.corkNoteSubText {
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7vw;
+  letter-spacing: 0.09px;
+  margin-top: -9px;
+  color: #26110D;
+}
+
+.corkNote.mobile .corkNoteSubText {
+  height: auto;
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@keyframes corkPinned {
+  0% { transform: scale(0.1) rotate(var(--start-rotation)); }
+  40% { transform: scale(1.3) rotate(calc(var(--start-rotation) - 35deg)); }
+  80% { transform: scale(0.95) rotate(calc(var(--start-rotation) - 15deg)); }
+  100% { transform: scale(1) rotate(var(--end-rotation)); }
+}
+
+#corkButton1 { top: 20.7%; left: 18.75%; }
+#corkButton2 { top: 21.3%; right: 29.9%;}
+#corkButton3 { bottom: 34.8%; left: 42.15%; }
+#corkButton4 { bottom: 37%; right: 15.6%; }
+
+.corkboard.mobile #corkButton1,
+.corkboard.mobile #corkButton2,
+.corkboard.mobile #corkButton3,
+.corkboard.mobile #corkButton4 {
+  position: static;
+  margin: 10px auto;
+}
+
+#corkNote1::before, #corkNote1 .corkNoteNumber::after { background: #4E86DA; }
+#corkNote2::before, #corkNote2 .corkNoteNumber::after { background: #589B5B; }
+#corkNote3::before, #corkNote3 .corkNoteNumber::after { background: #D971BC; }
+#corkNote4::before, #corkNote4 .corkNoteNumber::after { background: #5B30A2; }
+#corkNote1 .corkNoteText, #corkNote1 .corkNoteNumber { color: #395874; }
+#corkNote2 .corkNoteText, #corkNote2 .corkNoteNumber { color: #589B5B; }
+#corkNote3 .corkNoteText, #corkNote3 .corkNoteNumber { color: #D971BC; }
+#corkNote4 .corkNoteText, #corkNote4 .corkNoteNumber { color: #5B30A2; }
+.corkboard.mobile #corkNote2 .corkNoteNumber { color: #487d4b; }
+.corkboard.mobile #corkNote3 .corkNoteNumber { color: #b15c99; }
+.corkboard.mobile #corkNote4 .corkNoteNumber { color: #412272; }
+
+.corkActionButton {
+  position: absolute;
+  bottom: 5.67vw;
+  right: 8.4%;
+  padding: 1.24vw 7.5%;
+  background-color: #FF7700;
+  color: #F2E8DF;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s;
+  border-radius: 22px;
+  font-size: 1.32vw;
+}
+
+.corkActionButton.mobile {
+  position: static;
+  display: block;
+  margin: 20px auto;
+  padding: 15px 30px;
+  font-size: 16px;
+}
+
+.corkActionButton:hover {
+  background-color: #D96704;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(38,17,13,0.2);
+}
+
+@media (max-width: 768px) {
+  .corkSoap, .corkDuck, .corkLeaf, #leafCanvas {
+    display: none;
+  }
+
+  .corkboard {
+    background-size: cover;
+  }
+
+  
+}
+@media (min-width: 1920px) {
+  .corkSoap {
+    width: 25vw;
+    height: 22vw;
+  }
+
+  .corkDuck {
+    width: 20vw;
+    height: 28vw;
+  }
+
+  .corkLeaf {
+    width: 8vw;
+    height: 8vw;
+  }
+
+  #leafCanvas {
+    width: 6vw;
+    height: 6vw;
+  }
+
+  .corkButton {
+    width: 7vw;
+    height: 7vw;
+    font-size: 2.2vw;
+  }
+
+  .corkNote {
+    width: 15vw;
+    height: 20vw;
+    font-size: 1vw;
+  }
+
+  .corkNoteNumber {
+    font-size: 0.8vw;
+  }
+
+  .corkNoteText {
+    font-size: 0.9vw;
+  }
+
+  .corkNoteSubText {
+    font-size: 0.5vw;
+  }
+}

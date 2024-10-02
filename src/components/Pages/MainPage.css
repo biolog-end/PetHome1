@@ -1,0 +1,13 @@
+@keyframes AnimalsSpinIn {
+  0% {
+    transform: translateX(20vw) rotate(90deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+.whiteBgHelper{
+  width: 100%;
+  background-color: #FFFFFF;
+  height: 135px;
+}

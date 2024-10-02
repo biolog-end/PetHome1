@@ -1,0 +1,184 @@
+.review-testimonials-section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  background-color: #FFFFFF;
+  color: #F2E8DF;
+  margin-top: 0 !important;
+  min-height: 800px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.9rem 0;
+}
+
+.review-carousel-container {
+  position: relative;
+  overflow: hidden;
+  padding: 25px 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.review-carousel {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  cursor: grab;
+  user-select: none;
+}
+
+.review-carousel:active {
+  cursor: grabbing;
+}
+
+.review-testimonial-card {
+  flex: 0 0 auto;
+  height: auto;
+  min-height: 480px;
+  margin: 0 2rem;
+  background-color: #F2E8DF;
+  border-radius: 22px;
+  box-shadow: 0 4px 6px rgba(38, 17, 13, 0.2);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-testimonial-card:hover {
+  transform: rotate(0) scale(1.05) !important;
+  box-shadow: 0 8px 12px rgba(38, 17, 13, 0.3);
+}
+
+.review-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.review-avatar-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #ccc;
+  overflow: hidden;
+  margin-right: 19px;
+  flex-shrink: 0;
+}
+
+.review-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.review-info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.review-username {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.review-location {
+  font-size: 0.8rem;
+  color: #717171;
+}
+
+.review-rating {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #395874;
+  position:absolute;
+  top: 20px;
+  right: 10px;
+}
+
+.review-content {
+  text-align: left;
+  color: #26110D;
+  font-size: 0.9rem;
+  line-height: 1.47;
+  overflow-y: auto;
+  flex-grow: 1;
+  letter-spacing: 0.1px;
+}
+
+.review-testimonial-card:hover .review-content {
+  color: #395873;
+}
+.ourSarisfiedText{
+  margin-top: 195px;
+  margin-left: 10px;
+}
+.ourSarisfiedSpace{
+  width: 0.25em;
+}
+.review-bottom-text{
+  line-height: 1.1;
+  margin-top: 25px;
+  color: #395874;
+  font-size: 1.9rem;
+  font-style: italic;
+  font-weight: 800;
+  width: 42%;
+  text-align: left;
+  letter-spacing: -0.2px;
+}
+
+@media (max-width: 400px) {
+  .review-avatar-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .review-username {
+    font-size: 1rem;
+  }
+
+  .review-location {
+    font-size: 0.7rem;
+  }
+
+  .review-rating {
+    font-size: 1rem;
+  }
+
+  .review-content {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-resolution: 120dpi) {
+  .review-testimonial-card {
+    font-size: 14px;
+  }
+}
+
+@media (min-resolution: 144dpi) {
+  .review-testimonial-card {
+    font-size: 12px;
+  }
+}
+
+@media (min-resolution: 168dpi) {
+  .review-testimonial-card {
+    font-size: 10px;
+  }
+}
+@media (max-width: 1024px) {
+  .ourSarisfiedText {
+    margin-top: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ourSarisfiedText {
+    margin-top: 50px;
+  }
+}

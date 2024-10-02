@@ -1,0 +1,144 @@
+.htlQst-QuestionBlock {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #E49450;
+}
+
+.htlQst-container {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    z-index: 10000;
+}
+
+.htlQst-container h1 {
+    font-size: 7.8vw;
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(-20px);
+    font-weight: 800;
+    z-index: 999888;
+}
+
+.htlQst-container p {
+    font-size: 1.88vw;
+    font-weight: 900;
+    color: #FFFFFF;
+    margin: 1.9rem 0 0;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.htlQst-phone-number {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.htlQst-phone-number::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.htlQst-phone-number:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.htlQst-book-now {
+    margin-top: 61px;
+    background-color: #395874;
+    color: #FFFFFF;
+    padding: 0.8vw 4.9vw;
+    border: none;
+    border-radius: 25px;
+    font-size: 2.7vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.9);
+    position: relative;
+}
+
+.htlQst-book-now:hover {
+    background-color: #F2AE72;
+    color: #26110D;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+@keyframes htlQst-fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes htlQst-fadeInScale {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 1024px) {
+    .htlQst-container h1 {
+        font-size: 10vw;
+    }
+    .htlQst-container p {
+        font-size: 4vw;
+    }
+    .htlQst-book-now {
+        font-size: 3.5vw;
+        padding: 2.5vw 5vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .htlQst-container h1 {
+        font-size: 12vw;
+    }
+    .htlQst-container p {
+        font-size: 5vw;
+    }
+    .htlQst-book-now {
+        font-size: 4.5vw;
+        padding: 3vw 6vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .htlQst-container h1 {
+        font-size: 14vw;
+    }
+    .htlQst-container p {
+        font-size: 6vw;
+    }
+    .htlQst-book-now {
+        font-size: 5.5vw;
+        padding: 3.5vw 7vw;
+    }
+}
+
+.htlQst-cat-paw {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}

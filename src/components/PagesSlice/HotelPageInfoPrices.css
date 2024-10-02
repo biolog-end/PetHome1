@@ -1,0 +1,249 @@
+.htl-featuresThings{
+    width: 86%;
+    margin: 0 auto;
+}
+.htl-features {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0 20px;
+    align-items: flex-end;
+}
+.htl-features-left {
+    height: 69px;
+    display: flex;
+    gap: 16px;
+    width: 70%;
+    margin-bottom: 53px;
+}
+.htl-feature {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid #FF7700;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.htl-feature:hover {
+    background-color: rgba(255, 119, 0, 0.1);
+}
+.htl-feature-svg {
+    margin-right: 12px;
+    object-fit: contain;
+    overflow: visible;
+}
+.htl-feature-svg-vet {
+    width: 49px;
+    height: 65px;
+    transform: scale(0.8);
+}
+.htl-feature-svg-groom {
+    width: 51px;
+    height: 51px;
+    transform: scale(0.8);
+}
+.htl-feature-svg-cctv {
+    width: 56px;
+    height: 46px;
+    transform: scale(0.8);
+}
+.htl-feature-Vet{
+    width: 21.3%;
+}
+.htl-feature-Groomer{
+    width: 28.3%;
+}
+.htl-feature-CCTV{
+    width: 36.4%;
+}
+.htl-feature-text {
+    font-size: 19px;
+    color: #FF7700;
+    font-weight: bold;
+}
+.htl-paw-print {
+    margin-top: 25px;
+    position: relative;
+    right: -127px;
+    width: 44.2vw;
+    height: 218px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.htl-paw-print img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.htl-description-prices {
+    display: flex;
+    margin-top: 10px;
+    padding: 0 20px;
+    margin-bottom: 127px;
+}
+.htl-description {
+    width: 75%;
+    padding-right: 20px;
+}
+.htl-description p {
+    letter-spacing: -0.3px;
+    line-height: 19.8px;
+    font-size: 15px;
+    margin-top: 2px;
+    white-space: pre-wrap;
+}
+.htl-prices {
+    height: 480px;
+    width: 24%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 11px 10px;
+    transition: all 0.3s ease;
+}
+.htl-prices:hover{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.htl-prices h2 {
+    font-weight: 900;
+    color: #395874;
+    font-size: 51px;
+    margin-top: 0;
+    margin-left: 4px;
+    margin-bottom: 22px;
+}
+.htl-price-item {
+    margin-bottom: 10px;
+}
+.htl-price-item span {
+    margin-left: 4px;
+    font-size: 19px;
+    color: #FF7700;
+    font-weight: bold;
+}
+.htl-price-item hr {
+    border: none;
+    border-top: 3px solid #AAA39D;
+    margin: 8px 2px 25px;
+}
+.htl-extra h3{
+    margin-left: 3px;
+    font-size: 38px;
+    font-weight: 900;
+    color: #FF7700;
+    margin-top: 64px;
+    margin-bottom: 21px;
+}
+
+.htl-extra .htl-price-item span{
+    color: #395874;
+}
+
+.htl-btn-prices{
+    font-size: 20px;
+    width: 97%;
+    height: 51px;
+    margin-top: 40px;
+    margin-left: 4px;
+}
+
+@media (min-width: 1688px) {
+    .htl-paw-print {
+        right: -220px;
+    }
+}
+
+@media (min-width: 2024px) {
+    .htl-paw-print {
+        right: -310px;
+    }
+}
+
+@media (min-width: 3034px) {
+    .htl-paw-print {
+        right: -580px;
+    }
+}
+
+
+@media (max-width: 1050px) {
+    .htl-prices{
+        width: 26.5%;
+    }
+    .htl-prices span{
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 840px) {
+    .htl-prices span{
+        font-size: 16px;
+    }
+}
+
+
+
+@media (max-width: 900px) {
+    .htl-feature-svg {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .htl-featuresThings{
+        width: 95%;
+    }
+    .htl-features {
+        flex-direction: column;
+    }
+    .htl-features-left {
+        width: 100%;
+    }
+    .htl-paw-print {
+        right: -97px;
+        height: 238px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .htl-description-prices {
+        flex-direction: column;
+    }
+    .htl-description, .htl-prices {
+        width: 97%;
+        padding-right: 0;
+    }
+    .htl-price-item hr{
+        width: 97%;
+    }
+    .htl-prices {
+        height: 810px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 525px) {
+    .htl-paw-print {
+        display: none;
+    }
+    .htl-features-left{
+        height: 220px;
+        flex-direction: column;
+    }
+    .htl-feature{
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .htl-feature{
+        width: 92%;
+    }
+    .htl-featuresThings{
+        width: 100%;
+    }
+    .htl-btn-prices{
+        width: 95%;
+    }
+}

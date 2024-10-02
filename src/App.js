@@ -1,9 +1,13 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import MainPage from './components/MainPage';
-import About from './components/About';
-import SecretGame from './components/SecretGame';
+import Header from './components/Pages/Header';
+import Footer from './components/Pages/Footer';
+import MainPage from './components/Pages/MainPage';
+import About from './components/Pages/About';
+import SecretGame from './components/Pages/SecretGame';
+import HotelPage from './components/Pages/HotelPage';
+import ChatalogPage from './components/Pages/ChatalogPage';
+
 function App() {
   return (
     <Router>
@@ -11,19 +15,40 @@ function App() {
     </Router>
   );
 }
+
 function Content() {
   const location = useLocation();
-  const isSecretGame = location.pathname === '/secretgame';
+  const isAllDelete = (location.pathname === '/secretgame');
+  const isFooterDelete = (location.pathname === '/profile');
+  const isHotelPage = (location.pathname === '/hotelPage');
+  const isChatalogPage = (location.pathname === '/chatalog');
+
+  const headerProps = (isHotelPage || isChatalogPage)
+    ? { 
+        backgroundColor: "rgba(242, 232, 223, 0.8)",
+        menuTextColor: "#000000",
+        logoTextColor: "#000000",
+        applyLogoFilter: false
+      }
+    : {};
+
+  const footerBackgroundColor = isHotelPage
+    ? '#E49450'
+    : isChatalogPage
+    ? '#f2e8df'
+    : undefined;
 
   return (
     <div>
-      {!isSecretGame && <Header />}
+      {!isAllDelete && <Header {...headerProps} />}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/secretgame" element={<SecretGame />} />
+        <Route path="/hotelPage" element={<HotelPage />} />
+        <Route path="/chatalog" element={<ChatalogPage />} />
       </Routes>
-      {!isSecretGame && <Footer />}
+      {!(isAllDelete || isFooterDelete) && <Footer backgroundColor={footerBackgroundColor} />}
     </div>
   );
 }

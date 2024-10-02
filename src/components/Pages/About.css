@@ -1,0 +1,180 @@
+.disk-scene {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+  .disk-table {
+    width: 100%;
+    height: 400px;
+    background-color: #D96704;
+    position: absolute;
+    bottom: 0;
+  }
+  .disk-turntable-container {
+    position: relative;
+    height: 350px;
+    z-index: 1;
+  }
+  .disk-turntable {
+    width: 300px;
+    height: 300px;
+    background-color: #333;
+    border-radius: 20px;
+    position: relative;
+    overflow: visible;
+  }
+  .disk-record {
+    width: 250px;
+    height: 250px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    animation: disk-spin 5s linear infinite;
+  }
+  .disk-record::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: #d0d0d0;
+    border-radius: 50%;
+  }
+  .disk-record::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border: 10px solid #e0e0e0;
+    border-radius: 50%;
+  }
+  .disk-record-center {
+    width: 30px;
+    height: 30px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .disk-record-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .disk-record-text span {
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    transform-origin: 0 120px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+  }
+  .disk-tonearm {
+    width: 120px;
+    height: 100px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .disk-tonearm-base {
+    width: 40px;
+    height: 40px;
+    background-color: #555;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+  }
+  .disk-tonearm-arm {
+    width: 115px;
+    height: 5px;
+    background-color: #777;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transform-origin: right center;
+    animation: disk-scratchMovement 0.5s infinite alternate;
+  }
+  @keyframes disk-scratchMovement {
+    0% {
+      transform: rotate(317deg);
+    }
+    100% {
+      transform: rotate(321deg);
+    }
+  }
+  .disk-tonearm-extension {
+    width: 30px;
+    height: 5px;
+    background-color: #777;
+    position: absolute;
+    left: -21px;
+    top: -21.5px;
+    transform: rotate(43deg);
+    transform-origin: left center;
+  }
+  .disk-play-button {
+    width: 15px;
+    height: 15px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    position: absolute;
+    right: 5%;
+    top: 70px;
+    pointer-events: none;
+  }
+  .disk-cat-paw {
+    width: 80px;
+    height: 150px;
+    background-color: #FFA500;
+    position: absolute;
+    right: 7%;
+    top: 40%;
+    border-radius: 40px 40px 0 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+    transform: rotate(-45deg);
+  }
+  .disk-cat-paw::before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: #FFA500;
+    border-radius: 50%;
+    top: -12px;
+    left: 15px;
+    box-shadow: 25px 0 0 #FFA500;
+  }
+  .disk-cat-paw.active {
+    transform: rotate(-55deg) translate(-10px, 10px);
+  }
+  @keyframes disk-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .disk-leaf {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #4CAF50;
+    border-radius: 100% 0 100% 15%;
+  }

@@ -1,0 +1,230 @@
+/*questionsBlock*/
+
+.questions-QuestionBlock {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #6DD3E1;
+    padding-top: 260px;
+  }
+  
+  .questions-container {
+    text-align: center;
+    position: absolute;
+    top: 70.2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    z-index: 10000;
+  }
+  
+  .questions-container h1 {
+    font-size: 7.8vw;
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(-20px);
+    font-weight: 800;
+    z-index: 999888;
+  }
+  
+  .questions-container p {
+    font-size: 1.88vw;
+    font-weight: 900;
+    color: #F2AD72;
+    margin: 1.9rem 0 0;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  .questions-phone-number {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .questions-phone-number::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #F2AE72;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .questions-phone-number:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .questions-book-now {
+    margin-top: 61px;
+    background-color: #395874;
+    color: #FFFFFF;
+    padding: 0.8vw 4.9vw;
+    border: none;
+    border-radius: 25px;
+    font-size: 2.7vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.9);
+    position: relative;
+  }
+  
+  .questions-book-now:hover {
+    background-color: #F2AE72;
+    color: #26110D;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .questions-tennis-ball {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #bef2f9;
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 999990;
+  }
+  
+  @keyframes questions-fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes questions-fadeInScale {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes questions-fadeIn {
+    to {
+      opacity: 0.8;
+    }
+  }
+
+  .ReviewBubblesImage{
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: absolute;
+    width: 100%;
+  }
+  .ReviewBubblesImage{
+    top: -100px;
+    height: 40.7vw;
+  }
+  .ReviewBubblesImage img{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  @media (min-width: 1550px) {
+    .ReviewBubblesImage {
+      top: -110px;
+    }
+  }
+
+  @media (min-width: 1700px) {
+    .ReviewBubblesImage {
+      top: -125px;
+    }
+  }
+
+  @media (min-width: 1950px) {
+    .ReviewBubblesImage {
+      top: -140px;
+    }
+  }
+
+  @media (min-width: 2250px) {
+    .ReviewBubblesImage {
+      top: -165px;
+    }
+  }
+
+  @media (min-width: 2550px) {
+    .ReviewBubblesImage {
+      top: -205px;
+    }
+  }
+
+  @media (min-width: 3050px) {
+    .ReviewBubblesImage {
+      top: -395px;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .questions-container h1 {
+        font-size: 10vw;
+    }
+    .questions-container p {
+        font-size: 4vw;
+    }
+    .questions-book-now {
+        font-size: 3.5vw;
+        padding: 2.5vw 5vw;
+    }
+  }
+
+  @media (max-width: 1070px) {
+    .ReviewBubblesImage{
+      top: -80px;
+    }
+  }
+
+  @media (max-width: 880px) {
+    .ReviewBubblesImage{
+      top: -50px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .questions-container h1 {
+        font-size: 12vw;
+    }
+    .questions-container p {
+        font-size: 5vw;
+    }
+    .questions-book-now {
+        font-size: 4.5vw;
+        padding: 3vw 6vw;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .ReviewBubblesImage{
+      top: -40px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .questions-container h1 {
+        font-size: 14vw;
+    }
+    .questions-container p {
+        font-size: 6vw;
+    }
+    .questions-book-now {
+        font-size: 5.5vw;
+        padding: 3.5vw 7vw;
+    }
+  }
+  
+  

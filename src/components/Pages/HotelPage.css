@@ -1,0 +1,80 @@
+.HotelPageBg{
+    padding-top:217px;
+    background-color: #F2E8DF;
+}
+
+.htl-tabs-container {
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 10px 8.4%;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
+.htl-tabs-list {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+.htl-tabs-item {
+    flex: 1;
+    padding: 10px 5px;
+    padding-bottom: 29px;
+    letter-spacing: -1px;
+    cursor: pointer;
+    font-size: 21px;
+    color: #000000;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.htl-tabs-item.htl-tabs-active {
+    color: #000000;
+    font-weight: 500;
+}
+.htl-tabs-indicator {
+    position: absolute;
+    bottom: -4px;
+    height: 4px;
+    background-color: #AAA39D;
+    width: 100%;
+}
+.htl-tabs-indicator-active {
+    position: absolute;
+    bottom: -4px;
+    height: 4px;
+    background-color: #FF7700;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@media (max-width: 768px) {
+    .HotelPageBg{
+        padding-top: 125px;
+    }
+    .htl-tabs-container{
+        padding: 10px 3.4%;
+    }
+    .htl-tabs-item {
+        font-size: 14px;
+        padding: 8px 3px;
+    }
+}
+
+@media (max-width: 480px) {
+.htl-tabs-item {
+    font-size: 12px;
+    padding: 6px 2px;
+}
+}
+
+@media (max-width: 360px) {
+.htl-tabs-item {
+    font-size: 10px;
+    padding: 4px 1px;
+}
+}

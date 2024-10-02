@@ -1,0 +1,324 @@
+.guide-container {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000000000;
+    background-color: #FFFFFF;
+}
+.guide-container.guide-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.guide-container.guide-hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.guide-header {
+    height: 118px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+.guide-logo-container {
+    margin-left: 6.9vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+.guide-logo-container:hover {
+    transform: scale(1.05);
+}
+.guide-logo {
+    width: 110px;
+    height: 53px;
+    margin-bottom: 3px;
+    margin-top: -5px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+}
+.guide-visible .guide-logo {
+    opacity: 1;
+    transform: translateY(0);
+}
+.guide-company-name {
+    font-size: 25px;
+    font-weight: bold;
+    color: #000000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+}
+.guide-visible .guide-company-name {
+    opacity: 1;
+    transform: translateY(0);
+}
+.guide-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.guide-slide {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    width: 100%;
+    max-width: 600px;
+}
+.guide-slide.guide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+.guide-slide.guide-prev {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.guide-pet-image {
+    width: 482px;
+    height: 482px;
+    margin-bottom: 5px;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+}
+.guide-visible .guide-active .guide-pet-image {
+    opacity: 1;
+    transform: scale(1);
+}
+.guide-instruction {
+    font-weight: 900;
+    font-size: 18.5px;
+    text-align: center;
+    margin-bottom: 170px;
+    color: #000000;
+    transition: color 0.3s ease;
+    padding: 0 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s, color 0.3s ease;
+}
+.guide-visible .guide-active .guide-instruction {
+    opacity: 1;
+    transform: translateY(0);
+}
+.guide-instruction:hover {
+    color: #FF7700;
+}
+.guide-dots {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 23px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+}
+.guide-visible .guide-dots {
+    opacity: 1;
+    transform: translateY(0);
+}
+.guide-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #2A2A2A;
+    border-radius: 50%;
+    margin: 0 9px;
+    transition: transform 0.3s ease;
+}
+.guide-dot.guide-active {
+    transform: scale(1.5);
+}
+.guide-buttons {
+    margin: 0 auto;
+    width: 85.4%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;
+}
+.guide-visible .guide-buttons {
+    opacity: 1;
+    transform: translateY(0);
+}
+.guide-btn {
+    font-weight: 800;
+    padding: 10px 137px;
+    font-size: 14px;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    width: auto;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.guide-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+.guide-btn:active::after {
+    width: 200px;
+    height: 200px;
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+.guide-btn-skip {
+    padding: 10px 134px;
+    background-color: transparent;
+    color: #FF7700;
+    border: 4px solid #FF7700;
+    transition: all 0.3s ease;
+}
+.guide-btn-skip:hover {
+    background-color: rgba(255, 119, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.guide-btn-skip:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.guide-btn-next, .guide-btn-close {
+    background-color: #FF7700;
+    color: white;
+    transition: all 0.3s ease;
+}
+.guide-btn-next:hover, .guide-btn-close:hover {
+    background-color: #FF8800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.guide-btn-next:active, .guide-btn-close:active {
+    background-color: #FF6600;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.guide-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.guide-modal-overlay.guide-active {
+    opacity: 1;
+    visibility: visible;
+}
+.guide-modal {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    max-width: 90%;
+    width: 400px;
+}
+.guide-modal-overlay.guide-active .guide-modal {
+    transform: scale(1);
+    opacity: 1;
+}
+.guide-modal h2 {
+    margin-bottom: 20px;
+    color: #000000;
+    font-size: 20px;
+}
+.guide-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.guide-btn-modal {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: normal;
+    border-radius: 5px;
+}
+.guide-btn-skip-modal {
+    border: 2px solid #FF7700;
+}
+
+@media (max-width: 768px) {
+    .guide-container {
+        padding: 10px;
+    }
+    .guide-company-name {
+        font-size: 20px;
+    }
+    .guide-pet-image {
+        width: 150px;
+        height: 150px;
+    }
+    .guide-instruction {
+        font-size: 16px;
+    }
+    .guide-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+    .guide-modal h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .guide-container {
+        padding: 5px;
+    }
+    .guide-company-name {
+        font-size: 18px;
+    }
+    .guide-pet-image {
+        width: 120px;
+        height: 120px;
+    }
+    .guide-instruction {
+        font-size: 14px;
+    }
+    .guide-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    .guide-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .guide-modal h2 {
+        font-size: 16px;
+    }
+}
