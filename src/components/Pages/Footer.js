@@ -10,11 +10,11 @@ const Footer = ({ backgroundColor = '#6DD3E1' }) => {
   const basementDogImages = [
     { src: "https://placedog.net/127/127", alt: "Playful dog", width: 127, height: 127, top: 41.7, left: 0 },
     { src: "https://placedog.net/300/300", alt: "Happy dog", width: 300, height: 300, top: 41.2, left: 21.1 },
-    { src: "https://cataas.com/cat?width=127", alt: "Sleepy dog", width: 128, height: 127, top: 51.2, left: 90.3 },
+    { src: "https://placedog.net/127/127", alt: "Sleepy dog", width: 128, height: 127, top: 51.2, left: 90.3 },
     { src: "https://placedog.net/301/301", alt: "Curious dog", width: 300, height: 300, top: 65.95, left: 71.9 },
-    { src: "https://cataas.com/cat?width=221", alt: "Lazy dog", width: 221, height: 221, top: 69.2, left: 10.7 },
-    { src: "https://cataas.com/cat?width=128", alt: "Excited dog", width: 128, height: 128, top: 66.9, left: 3.3 },
-    { src: "https://cataas.com/cat?width=183", alt: "Friendly dog", width: 183, height: 183, top: 74.9, left: 44 }
+    { src: "https://placedog.net/221/221", alt: "Lazy dog", width: 221, height: 221, top: 69.2, left: 10.7 },
+    { src: "https://placedog.net/128/128", alt: "Excited dog", width: 128, height: 128, top: 66.9, left: 3.3 },
+    { src: "https://placedog.net/183/183", alt: "Friendly dog", width: 183, height: 183, top: 74.9, left: 44 }
   ];
 
   useEffect(() => {

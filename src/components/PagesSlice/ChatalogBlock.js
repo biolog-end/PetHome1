@@ -4,6 +4,9 @@ import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import './ChatalogBlock.css';
 
+import PetHotelExmpl from '../Assets/Img/PetHotelExmpls/PetHotelExmpl1.png';
+import HotelLogo from '../Assets/Img/HotelLogo.png';
+
 const filters = [
     {
         title: "Rating",
@@ -79,17 +82,17 @@ const hotels = [
       location: "Philippines, Cagayan de Oro",
       pets: "Cats and Dogs",
       features: ["vet", "groomer", "cctv"],
-      rating: 5,
+      rating: 4,
       reviews: 46,
       price: 30,
-      image: `https://placedog.net/300/200?id=9`,
+      image: PetHotelExmpl,
       additionalFeatures: ["Yard for walking animals.", "It is possible to order a dog handler.", "Traditional feeding available.", "Pet sitting 24/7"],
       freeCancellation: true,
       noPrepayment: true,
       availablePlaces: 5,
       dateAdded: new Date('2024-09-28'),
       extraOption: "1-Top in Ukraine",
-      logo: `https://placedog.net/30/30?id=100`
+      logo: HotelLogo
     },
     {
       name: "Uptown Pets Hotel",
@@ -99,7 +102,7 @@ const hotels = [
       rating: 4,
       reviews: 46,
       price: 30,
-      image: `https://placedog.net/300/200?id=1`,
+      image: PetHotelExmpl,
       additionalFeatures: ["Yard for walking animals", "It is possible to order a dog handler."],
       freeCancellation: true,
       noPrepayment: false,
@@ -116,7 +119,7 @@ const hotels = [
       rating: 3.2,
       reviews: 765,
       price: 180,
-      image: `https://placedog.net/300/200?id=2`,
+      image: PetHotelExmpl,
       additionalFeatures: ["Private rooms for pets.", "Paw daycare service available."],
       freeCancellation: false,
       noPrepayment: true,
@@ -131,7 +134,7 @@ const hotels = [
       rating: 2.7,
       reviews: 1543,
       price: 200,
-      image: `https://placedog.net/300/200?id=3`,
+      image: PetHotelExmpl,
       additionalFeatures: ["24/7 vet service.", "Outdoor play area."],
       freeCancellation: true,
       noPrepayment: true,
@@ -146,7 +149,7 @@ const hotels = [
       rating: 1.3,
       reviews: 654,
       price: 130,
-      image: `https://placedog.net/300/200?id=4`,
+      image: PetHotelExmpl,
       additionalFeatures: [],
       freeCancellation: false,
       noPrepayment: false,
@@ -232,8 +235,8 @@ const hotels = [
         rating: parseFloat(rating),
         reviews: Math.floor(Math.random() * 100),
         price: Math.floor(Math.random() * 200) + 50,
-        image: `https://placedog.net/300/200?id=${i}`,
-        logo: Math.random() < 0.7 ? `https://placedog.net/30/30?id=${i}` : null,
+        image: PetHotelExmpl,
+        logo: Math.random() < 0.7 ? HotelLogo : null,
         additionalFeatures: getRandomAdditionalFeatures(),
         freeCancellation: Math.random() < 0.5,
         noPrepayment: Math.random() < 0.5,
