@@ -136,6 +136,27 @@
     transform: translateY(-50%) scale(0.95);
 }
 
+.ctlgBlkSrtc-search-button.modified {
+  background-color: #FFAA00;
+  box-shadow: 0 0 15px rgba(255, 170, 0, 0.6); 
+  animation: ctlgBlkSrtc-pulse 2.2s infinite; 
+}
+
+@keyframes ctlgBlkSrtc-pulse {
+  0% {
+      transform: translateY(-50%) scale(1);
+      box-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+  }
+  50% {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 170, 0, 0.8);
+  }
+  100% {
+      transform: translateY(-50%) scale(1);
+      box-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+  }
+}
+
 .ctlgBlkSrtc-filter-button:active {
     transform: scale(0.95);
     transition: transform 0.1s ease-in-out;
@@ -996,5 +1017,40 @@
 
   .ctlgBlkSrtc-hotel-card {
     margin-bottom: 20px;
+  }
+}
+
+.ctlgBlkSrtc-loading-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 165, 0, 0.2); 
+  backdrop-filter: blur(10px); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+  transition: opacity 0.3s ease;
+}
+
+.ctlgBlkSrtc-loading-animation {
+  width: 80px;
+  height: 80px;
+  border: 10px solid rgba(255, 165, 0, 0.2); 
+  border-top: 10px solid rgba(255, 165, 0, 1); 
+  border-radius: 50%;
+  animation: ctlgBlkSrtc-spin 1s linear infinite;
+}
+
+@keyframes ctlgBlkSrtc-spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
   }
 }
