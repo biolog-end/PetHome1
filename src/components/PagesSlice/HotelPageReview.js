@@ -4,6 +4,8 @@ import HotelQuest from '../Assets/Img/HotelQuest.png';
 
 const HotelPageReview = ({ reviewsData, averageRat }) => {
   const htlRevData = reviewsData;
+  console.log("reviewsData" + reviewsData);
+  console.log("htlRevData" + htlRevData);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +23,7 @@ const HotelPageReview = ({ reviewsData, averageRat }) => {
     .filter(
       (review) =>
         review.rating >= 4 &&
-        review.text.length >= 20 &&
+        review.text.length >= 15 &&
         review.text.length <= 440
     )
     .slice(0, 30);
@@ -30,6 +32,8 @@ const HotelPageReview = ({ reviewsData, averageRat }) => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
     lastInteractionRef.current = Date.now();
   };
+  
+  console.log("filteredReviews: ", JSON.stringify(filteredReviews, null, 2));
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -105,12 +109,21 @@ const HotelPageReview = ({ reviewsData, averageRat }) => {
     };
   }, [currentIndex, filteredReviews.length, visibleCards, isModalOpen]);
 
-    function formatDate(date) {
-      const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const year = date.getFullYear().toString().slice(-2);
-      return `${day}.${month}.${year}`;
+  function formatDate(dateInput) {
+    console.log("dateInput" + dateInput)
+    const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+    console.log("date" + date)
+  
+    if (isNaN(date)) {
+      throw new Error('Invalid date');
     }
+  
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2);
+  
+    return `${day}.${month}.${year}`;
+  }  
 
      function HtlRevCard({ review }) {
     return (
@@ -120,7 +133,7 @@ const HotelPageReview = ({ reviewsData, averageRat }) => {
             <img src={review.avatarUrl} alt={review.username} className="htlRev-avatar" />
             <div className="htlRev-user-details">
               <span className="htlRev-username">{review.username}</span>
-              <span className="htlRev-date">{formatDate(review.date)}</span>
+              <span className="htlRev-date">{formatDate(review.dateAdded)}</span>
             </div>
           </div>
           <div className="htlRev-user-rating">{review.rating.toFixed(1)}</div>

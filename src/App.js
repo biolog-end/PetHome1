@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, matchPath } from 'react-router-dom';
+
 import Header from './components/Pages/Header';
 import Footer from './components/Pages/Footer';
 import MainPage from './components/Pages/MainPage';
@@ -20,7 +21,7 @@ function Content() {
   const location = useLocation();
   const isAllDelete = (location.pathname === '/secretgame');
   const isFooterDelete = (location.pathname === '/profile');
-  const isHotelPage = (location.pathname === '/hotelPage');
+  const isHotelPage = matchPath('/hotelPage/:id', location.pathname);
   const isChatalogPage = (location.pathname === '/chatalog');
 
   const headerProps = (isHotelPage || isChatalogPage)

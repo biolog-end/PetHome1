@@ -86,12 +86,12 @@ const ChatalogBlock = () => {
     const priceFilter = filtersData.find(filter => filter.title === "Price (per night)");
 
     const [filters, setFilters] = useState({
-      selectedTags: [],
-      minRating: null,
-      petsAllowed: null,
-      priceRange: [priceFilter.min, priceFilter.max],
-      searchTerm: '',
-      sortBy: '',
+        selectedTags: [],
+        minRating: [],
+        petsAllowed: null,
+        priceRange: [priceFilter.min, priceFilter.max],
+        searchTerm: '',
+        sortBy: 'best_selling',
     });
   
     const [hotels, setHotels] = useState([]);
@@ -146,96 +146,100 @@ const ChatalogBlock = () => {
     const fetchHotels = async () => {
         setIsLoading(true);
         try {
-          const params = new URLSearchParams();
+            const params = new URLSearchParams();
 
-          if (filters.selectedTags.length > 0) {
-            filters.selectedTags.slice(0, 10).forEach(tag => {
-              params.append('Tags', tag);
+            if (filters.selectedTags.length > 0) {
+                filters.selectedTags.slice(0, 10).forEach(tagLabel => {
+                    const backendTag = mapTagLabelToBackendValue(tagLabel);
+                    if (backendTag) {
+                        params.append('Tags', backendTag);
+                    }
+                });
+            }
+
+            if (filters.minRating.length > 0) {
+                const maxRating = Math.max(...filters.minRating.map(Number));
+                params.append('MinRating', maxRating);
+            }
+
+            if (filters.petsAllowed != null) {
+                params.append('PetsAllowed', filters.petsAllowed);
+            }
+
+            if (filters.priceRange[0] != null) {
+                params.append('PriceMin', filters.priceRange[0]);
+            }
+            if (filters.priceRange[1] != null) {
+                params.append('PriceMax', filters.priceRange[1]);
+            }
+
+            if (filters.searchTerm) {
+                params.append('SearchTerm', filters.searchTerm);
+            }
+
+            if (filters.sortBy) {
+                params.append('SortBy', filters.sortBy);
+            }
+
+            params.append('PageNumber', currentPage);
+            params.append('PageSize', pageSize);
+
+            const response = await fetch(`/api/hotels/catalog?${params.toString()}`, {
+                method: 'GET'
             });
-          }
 
-          if (filters.minRating != null) {
-            params.append('MinRating', filters.minRating);
-          }
-    
-          if (filters.petsAllowed != null) {
-            params.append('PetsAllowed', filters.petsAllowed);
-          }
+            if (response.ok) {
+                const data = await response.json();
 
-          if (filters.priceRange[0] != null) {
-            params.append('PriceMin', filters.priceRange[0]);
-          }
-          if (filters.priceRange[1] != null) {
-            params.append('PriceMax', filters.priceRange[1]);
-          }
-    
-          if (filters.searchTerm) {
-            params.append('SearchTerm', filters.searchTerm);
-          }
-    
-          if (filters.sortBy) {
-            params.append('SortBy', filters.sortBy);
-          }
-    
-          params.append('PageNumber', currentPage);
-          params.append('PageSize', pageSize);
-    
-          const response = await fetch(`/api/hotels/catalog?${params.toString()}`, {
-            method: 'GET'
-          });
-    
-          if (response.ok) {
-            const data = await response.json();
-    
-            setHotels(data.items);
-            setTotalPages(data.totalPages);
-            setTotalCount(data.totalCount);
-            setPageSize(data.pageSize);
-          } else {
-            console.error('Failed to fetch hotels');
-          }
+                setHotels(data.items);
+                setTotalPages(data.totalPages);
+                setTotalCount(data.totalCount);
+                setPageSize(data.pageSize);
+            } else {
+                console.error('Failed to fetch hotels');
+            }
         } catch (error) {
-          console.error('Error fetching hotels', error);
-        }finally {
-            setIsLoading(false); 
+            console.error('Error fetching hotels', error);
+        } finally {
+            setIsLoading(false);
         }
-      };
+    };
     
-      useEffect(() => {
+    useEffect(() => {
         fetchHotels();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [currentPage]);
-    
-      const handleSearch = () => {
+    }, [currentPage]);
+
+    const handleSearch = () => {
         setCurrentPage(1);
         fetchHotels();
         setIsModified(false);
-      };
-    
-      const togglePetDropdown = () => {
+    };
+
+    const togglePetDropdown = () => {
         setIsPetDropdownOpen(!isPetDropdownOpen);
         setIsFilterOpen(false);
         setIsSortOpen(false);
-      };
-    
-      const toggleFilters = () => {
+    };
+
+    const toggleFilters = () => {
         setIsFilterOpen(!isFilterOpen);
         setIsSortOpen(false);
         setIsPetDropdownOpen(false);
-      };
-    
-      const toggleSorts = () => {
+    };
+
+    const toggleSorts = () => {
         setIsSortOpen(!isSortOpen);
         setIsFilterOpen(false);
         setIsPetDropdownOpen(false);
-      };
-    
-      const toggleFavorite = (index) => {
+    };
+
+    const toggleFavorite = (index) => {
         setFavorites(prevFavorites => ({
-          ...prevFavorites,
-          [index]: !prevFavorites[index]
+            ...prevFavorites,
+            [index]: !prevFavorites[index]
         }));
-      };
+    };
 
     const FavoriteButton = ({ index, isFavorite }) => (
         <button className="ctlgBlkSrtc-favorite-button" onClick={() => toggleFavorite(index)}>
@@ -299,25 +303,33 @@ const ChatalogBlock = () => {
         setFilters(prevFilters => {
             let selectedTags = [...prevFilters.selectedTags];
             if (selectedTags.includes(tagValue)) {
-            selectedTags = selectedTags.filter(tag => tag !== tagValue);
+                selectedTags = selectedTags.filter(tag => tag !== tagValue);
             } else {
-            if (selectedTags.length < 10) {
-                selectedTags.push(tagValue);
-            }
+                if (selectedTags.length < 10) {
+                    selectedTags.push(tagValue);
+                }
             }
             return {
-            ...prevFilters,
-            selectedTags
+                ...prevFilters,
+                selectedTags
             };
         });
         setIsModified(true);
     };
 
     const handleRatingChange = (value) => {
-        setFilters(prevFilters => ({
-            ...prevFilters,
-            minRating: prevFilters.minRating === value ? null : value
-        }));
+        setFilters(prevFilters => {
+            let minRating = [...prevFilters.minRating];
+            if (minRating.includes(value)) {
+                minRating = minRating.filter(r => r !== value);
+            } else {
+                minRating.push(value);
+            }
+            return {
+                ...prevFilters,
+                minRating
+            };
+        });
         setIsModified(true);
     };
 
@@ -344,6 +356,58 @@ const ChatalogBlock = () => {
           searchTerm: e.target.value
         }));
         setIsModified(true);
+    };
+
+    const mapTagLabelToBackendValue = (tagLabel) => {
+        switch (tagLabel) {
+            case 'Vet':
+                return 'Vet';
+            case 'Groomer':
+                return 'Groomer';
+            case 'CCTV cameras':
+            case 'CCTV Cameras':
+                return 'CCTV_Cameras';
+            case 'Top in your country':
+                return 'Top_In_Your_Country';
+            case 'Available discounts':
+                return 'Available_Discounts';
+            case 'Free cancelation':
+            case 'Free cancellation':
+                return 'Free_Cancellation';
+            case 'No prepayment needed':
+                return 'No_Prepayment_Needed';
+            case 'Dog handler':
+                return 'Dog_Handler';
+            case 'Traditional food':
+            case 'Traditional feeding':
+                return 'Traditional_Food';
+            case 'Special food (hypoallergenic)':
+                return 'Special_Food_Hypoallergenic';
+            case 'Regular food':
+                return 'Regular_Food';
+            case 'Walking in the yard':
+            case 'Yard':
+                return 'Walking_In_The_Yard';
+            case 'Walking in own area':
+                return 'Walking_In_Own_Area';
+            case 'Walking in the park':
+                return 'Walking_In_The_Park';
+            case 'Walking around the city':
+                return 'Walking_Around_The_City';
+            case 'Walking in the forest':
+                return 'Walking_In_The_Forest';
+            case 'Walking on the beach':
+                return 'Walking_On_The_Beach';
+            case 'Near sea':
+                return 'Near_Sea';
+            case 'Near mountain':
+            case 'Near mountains':
+                return 'Near_Mountain';
+            case 'Near my location':
+                return 'Near_My_Location';
+            default:
+                return null;
+        }
     };
 
     return (
@@ -399,38 +463,38 @@ const ChatalogBlock = () => {
                                 <h3>{filter.title}</h3>
                                 {filter.type === 'checkbox' && filter.title === 'Rating' && filter.options.map((option, idx) => (
                                     <div key={idx} className="ctlgBlkSrtc-filter-option">
-                                    <label>
-                                        <input
-                                        type="radio"
-                                        name="rating"
-                                        value={option.label}
-                                        checked={filters.minRating === option.label[0]}
-                                        onChange={() => handleRatingChange(option.label[0])}
-                                        />
-                                        {option.label}
-                                    </label>
-                                    <span className="ctlgBlkSrtc-filter-count">{option.count}</span>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="rating"
+                                                value={option.label}
+                                                checked={filters.minRating.includes(option.label[0])}
+                                                onChange={() => handleRatingChange(option.label[0])}
+                                            />
+                                            {option.label}
+                                        </label>
+                                        <span className="ctlgBlkSrtc-filter-count">{option.count}</span>
                                     </div>
                                 ))}
                                 {filter.type === 'checkbox' && filter.title !== 'Rating' && filter.options.map((option, idx) => (
                                     <div key={idx} className="ctlgBlkSrtc-filter-option">
-                                    <label>
-                                        <input
-                                        type="checkbox"
-                                        checked={filters.selectedTags.includes(option.label)}
-                                        onChange={() => handleTagChange(option.label)}
-                                        />
-                                        {option.label}
-                                    </label>
-                                    <span className="ctlgBlkSrtc-filter-count">{option.count}</span>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={filters.selectedTags.includes(option.label)}
+                                                onChange={() => handleTagChange(option.label)}
+                                            />
+                                            {option.label}
+                                        </label>
+                                        <span className="ctlgBlkSrtc-filter-count">{option.count}</span>
                                     </div>
                                 ))}
                                 {filter.type === 'range' && (
                                     <div className="ctlgBlkSrtc-price-range">
-                                    <div className="ctlgBlkSrtc-price-display">
-                                        ${priceRange[0]} - ${priceRange[1]}
-                                    </div>
-                                    <div id="ctlgBlkSrtc-price-slider"></div>
+                                        <div className="ctlgBlkSrtc-price-display">
+                                            ${priceRange[0]} - ${priceRange[1]}
+                                        </div>
+                                        <div id="ctlgBlkSrtc-price-slider"></div>
                                     </div>
                                 )}
                                 </div>

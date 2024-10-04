@@ -44,8 +44,17 @@ const HotelPage = () => {
           vetPrice: data.vetPrice,
           cameraPrice: data.cctvPrice,
           reviews: data.reviews,
-          averageRating: data.averageRating
+          averageRating: data.averageRating,
+          percentage1Star: data.percentage1Star,
+          percentage2Star: data.percentage2Star,
+          percentage3Star: data.percentage3Star,
+          percentage4Star: data.percentage4Star,
+          percentage5Star: data.percentage5Star,
+          reviewCount: data.reviewCount
         };
+
+        console.log("l" + mappedHotel.reviews);
+        console.log("9" + data.reviews);
 
         setHotel(mappedHotel);
       } catch (err) {
@@ -84,26 +93,13 @@ const HotelPage = () => {
         location: hotel.location,
         images: hotel.images,
         logo: hotel.logo,
-        reviews: hotel.reviews.map((review) => ({
-          rating: review.rating,
-          username: review.username,
-          dateAdded: review.dateAdded,
-          avatarUrl: review.avatarUrl,
-          text: review.text,
-        })),
-      }
-    : {};
-
-    const rewiewsData = hotel
-    ? {
+        percentage1Star: hotel.percentage1Star,
+        percentage2Star: hotel.percentage2Star,
+        percentage3Star: hotel.percentage3Star,
+        percentage4Star: hotel.percentage4Star,
+        percentage5Star: hotel.percentage5Star,
+        reviewCount: hotel.reviewCount,
         averageRating: hotel.averageRating,
-        reviews: hotel.reviews.map((review) => ({
-          rating: review.rating,
-          username: review.username,
-          dateAdded: review.dateAdded,
-          avatarUrl: review.avatarUrl,
-          text: review.text,
-        })),
       }
     : {};
 

@@ -197,27 +197,21 @@ function HtlContent({ hotel, currentImageIndex, changeImage, openModal, setLastI
     );
 }
 function HtlReviews({ hotel }) {
-    const averageRating = (hotel.reviews.reduce((a, b) => a + b.rating, 0) / hotel.reviews.length).toFixed(1);
-    
+    const averageRating = hotel.averageRating;
 
-    const ratingCounts = hotel.reviews.reduce((acc, review) => {
-        acc[review.rating] = (acc[review.rating] || 0) + 1;
-        return acc;
-    }, {});
-
-
-    const ratingPercentages = Object.fromEntries(
-        Object.entries(ratingCounts).map(([rating, count]) => [
-        rating,
-        (count / hotel.reviews.length * 100).toFixed(1)
-        ])
-    );
+    const ratingPercentages = {
+        1: hotel.percentage1Star || 0,
+        2: hotel.percentage2Star || 0,
+        3: hotel.percentage3Star || 0,
+        4: hotel.percentage4Star || 0,
+        5: hotel.percentage5Star || 0,
+    };
 
     return (
         <div className="htl-reviews">
             <div className={`htl-rating-block ${hotel.logo ? '' : 'no-logo'}`}>
                 <div className="htl-reviews-title">REVIEWS</div>
-                <div className="htl-rating">{averageRating}</div>
+                <div className="htl-rating">{averageRating.toFixed(1)}</div>
                 <div className="htl-rating-bars">
                     {[5, 4, 3, 2, 1].map(rating => (
                         <HtlRatingBar key={rating} rating={rating.toFixed(1)} percentage={ratingPercentages[rating] || 0} />
