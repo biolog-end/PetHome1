@@ -141,7 +141,7 @@ const Header = ({
             <img src={logo} alt="PetHome Logo" style={logoStyle} /> <span>PetHome</span>
           </div>
           <div className="menu">
-            <a href="/hotelPage" style={menuStyle}>HOTELS</a>
+            <a href="/chatalog" style={menuStyle}>HOTELS</a>
             <a href="/about" style={menuStyle}>ABOUT US</a>
             <a href="/" style={menuStyle}>CONTACT US</a>
             <a href="#blog" style={menuStyle}>FOR HOTELS</a>

@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import './ChatalogBlock.css';
+import { Link } from 'react-router-dom';
 
-import PetHotelExmpl from '../Assets/Img/PetHotelExmpls/PetHotelExmpl1.png';
-import HotelLogo from '../Assets/Img/HotelLogo.png';
 
 const filtersData  = [
     {
@@ -646,10 +645,12 @@ const ChatalogBlock = () => {
                                         `${Math.round(hotel.pricePerNight)}$`
                                     )}
                                 </div>
-                                <button className="ctlgBlkSrtc-availability-button" onClick={handleClickCard}> 
-                                    See availability
-                                    <svg width="14" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.06 13.06a1.5 1.5 0 0 0 0-2.12L3.51 1.39A1.5 1.5 0 1 0 1.4 3.51L9.88 12l-8.49 8.49a1.5 1.5 0 1 0 2.12 2.12l9.55-9.55ZM11 13.5h1v-3h-1v3Z" fill="#fff"/></svg>
-                                </button>
+                                <Link to={`/hotelPage/${hotel.id}`}> 
+                                    <button className="ctlgBlkSrtc-availability-button" onClick={handleClickCard}> 
+                                        See availability
+                                        <svg width="14" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.06 13.06a1.5 1.5 0 0 0 0-2.12L3.51 1.39A1.5 1.5 0 1 0 1.4 3.51L9.88 12l-8.49 8.49a1.5 1.5 0 1 0 2.12 2.12l9.55-9.55ZM11 13.5h1v-3h-1v3Z" fill="#fff"/></svg>
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>

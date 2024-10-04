@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import './HotelPageReview.css';
 import HotelQuest from '../Assets/Img/HotelQuest.png';
 
-const HotelPageReview = ({ rewievsData }) => {
-  const htlRevData = rewievsData;
+const HotelPageReview = ({ reviewsData, averageRat }) => {
+  const htlRevData = reviewsData;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,9 +15,7 @@ const HotelPageReview = ({ rewievsData }) => {
   const lastInteractionRef = useRef(Date.now());
   const isMouseOverSlider = useRef(false);
 
-  const averageRating =
-    htlRevData.reduce((sum, review) => sum + review.rating, 0) /
-    htlRevData.length;
+  const averageRating = averageRat;
 
   const filteredReviews = htlRevData
     .filter(
@@ -119,10 +117,10 @@ const HotelPageReview = ({ rewievsData }) => {
       <div className="htlRev-card">
         <div className="htlRev-card-header">
           <div className="htlRev-user-info">
-            <img src={review.user.avatar} alt={review.user.username} className="htlRev-avatar" />
+            <img src={review.avatarUrl} alt={review.username} className="htlRev-avatar" />
             <div className="htlRev-user-details">
-              <span className="htlRev-username">{review.user.username}</span>
-              <span className="htlRev-date">{formatDate(review.user.date)}</span>
+              <span className="htlRev-username">{review.username}</span>
+              <span className="htlRev-date">{formatDate(review.date)}</span>
             </div>
           </div>
           <div className="htlRev-user-rating">{review.rating.toFixed(1)}</div>
@@ -152,10 +150,10 @@ const HotelPageReview = ({ rewievsData }) => {
       <div className="htlRev-modal-review-card" style={cardStyle}>
         <div className="htlRev-card-header">
           <div className="htlRev-user-info">
-            <img src={review.user.avatar} alt={review.user.username} className="htlRev-avatar" />
+            <img src={review.avatarUrl} alt={review.username} className="htlRev-avatar" />
             <div className="htlRev-user-details">
-              <span className="htlRev-username">{review.user.username}</span>
-              <span className="htlRev-date">{formatDate(review.user.date)}</span>
+              <span className="htlRev-username">{review.username}</span>
+              <span className="htlRev-date">{formatDate(review.dateAdded)}</span>
             </div>
           </div>
           <div className="htlRev-user-rating">{review.rating.toFixed(1)}</div>

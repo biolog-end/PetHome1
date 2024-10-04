@@ -45,7 +45,7 @@ function Content() {
         <Route path="/" element={<MainPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/secretgame" element={<SecretGame />} />
-        <Route path="/hotelPage" element={<HotelPage />} />
+        <Route path="/hotelPage/:id" element={<HotelPage />} />
         <Route path="/chatalog" element={<ChatalogPage />} />
       </Routes>
       {!(isAllDelete || isFooterDelete) && <Footer backgroundColor={footerBackgroundColor} />}
